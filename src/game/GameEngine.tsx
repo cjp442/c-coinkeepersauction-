@@ -1,32 +1,44 @@
 import React, { useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import { create } from 'zustand';
+import LobbyScene from './scenes/LobbyScene';
+import HostRoomScene from './scenes/HostRoomScene';
+import MemberRoomScene from './scenes/MemberRoomScene';
+
+type Scene = 'lobby' | 'host' | 'member';
+
+interface GameStore {
+    score: number;
+    currentScene: Scene;
+    increaseScore: () => void;
+    setScene: (scene: Scene) => void;
+}
 
 // Zustand store for game state management
-const useGameStore = create((set) => ({
+const useGameStore = create<GameStore>((set) => ({
     score: 0,
+    currentScene: 'lobby',
     increaseScore: () => set((state) => ({ score: state.score + 1 })),
+    setScene: (scene: Scene) => set({ currentScene: scene }),
 }));
 
 const GameEngine = () => {
-    const score = useGameStore((state) => state.score);
-    const increaseScore = useGameStore((state) => state.increaseScore);
+    const currentScene = useGameStore((state) => state.currentScene);
+    const setScene = useGameStore((state) => state.setScene);
 
     useEffect(() => {
         // Any game initialization logic
     }, []);
 
     return (
-        <Canvas>
-            <ambientLight />
-            <pointLight position={[10, 10, 10]} />
-            <OrbitControls />
-            {/* Insert avatar and other game objects here */}
-            <mesh onClick={increaseScore}>
-                <boxBufferGeometry args={[1, 1, 1]} />
-                <meshStandardMaterial color={'orange'} />
-            </mesh>
+        <Canvas
+            shadows
+            camera={{ position: [0, 5, 10], fov: 60 }}
+            style={{ background: '#1a0e04' }}
+        >
+            {currentScene === 'lobby' && <LobbyScene onNavigate={setScene} />}
+            {currentScene === 'host' && <HostRoomScene onNavigate={setScene} />}
+            {currentScene === 'member' && <MemberRoomScene onNavigate={setScene} />}
         </Canvas>
     );
 };
