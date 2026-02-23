@@ -23,7 +23,7 @@ export default function GameEngine({ onExitGame }: GameEngineProps) {
   const { currentScene, currentRoomId, cameraMode, setCameraMode, setScene } = useGameStore()
 
   const handleSceneChange = (scene: 'lobby' | 'host_room' | 'member_room', roomId: string) => {
-    setScene(scene, roomId || undefined)
+    setScene(scene, roomId || null)
   }
 
   return (
