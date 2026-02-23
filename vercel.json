@@ -1,1 +1,1 @@
-{"buildCommand":"npm run build","outputDirectory":"dist","framework":"vite","installCommand":"npm ci","env":{"VITE_DOMAIN":"keepersauction.com","VITE_HOST_PHONE":"606-412-3121"},"domains":["keepersauction.com","www.keepersauction.com"],"git":{"deploymentEnabled":true}}
+{"buildCommand":"npm run build","outputDirectory":"dist","framework":"vite","installCommand":"npm ci","env":{"VITE_DOMAIN":"keepersauction.com","VITE_HOST_PHONE":"606-412-3121"},"git":{"deploymentEnabled":true}}
