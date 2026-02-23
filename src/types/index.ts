@@ -127,3 +127,105 @@ export interface NotificationMessage {
   read: boolean
   created_at: string
 }
+
+export interface StreamSession {
+  id: string
+  host_id: string
+  host_name: string
+  title: string
+  status: 'live' | 'ended'
+  viewer_count: number
+  started_at: string
+  ended_at?: string
+  created_at: string
+}
+
+export interface AuctionItem {
+  id: string
+  host_id: string
+  title: string
+  description: string
+  image_url?: string
+  starting_price: number
+  reserve_price?: number
+  is_flash_drop: boolean
+  flash_quantity?: number
+  flash_remaining?: number
+  created_at: string
+}
+
+export interface LiveAuction {
+  id: string
+  stream_session_id: string
+  auction_item_id: string
+  item_title: string
+  item_description: string
+  item_image_url?: string
+  host_id: string
+  status: 'active' | 'ended' | 'sold'
+  starting_price: number
+  current_bid: number
+  current_bidder_id?: string
+  current_bidder_name?: string
+  bid_count: number
+  view_count: number
+  started_at: string
+  ended_at?: string
+  final_price?: number
+  winner_id?: string
+  winner_name?: string
+  created_at: string
+}
+
+export interface LiveBid {
+  id: string
+  auction_id: string
+  bidder_id: string
+  bidder_name: string
+  amount: number
+  max_bid?: number
+  is_proxy: boolean
+  created_at: string
+}
+
+export interface FlashDrop {
+  id: string
+  stream_session_id: string
+  item_title: string
+  price: number
+  quantity: number
+  remaining: number
+  expires_at: string
+  created_at: string
+}
+
+export interface SellerRating {
+  id: string
+  seller_id: string
+  reviewer_id: string
+  reviewer_name: string
+  rating: number
+  comment: string
+  auction_id: string
+  created_at: string
+}
+
+export interface StreamSchedule {
+  id: string
+  host_id: string
+  host_name: string
+  title: string
+  scheduled_at: string
+  description: string
+  notify_count: number
+  created_at: string
+}
+
+export interface AuctionTip {
+  id: string
+  auction_id: string
+  tipper_id: string
+  tipper_name: string
+  amount: number
+  created_at: string
+}

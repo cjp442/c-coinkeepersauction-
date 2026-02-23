@@ -4,6 +4,7 @@ import GamePage from './GamePage';
 import AdminPage from './AdminPage';
 import ProfilePage from './ProfilePage';
 import Shop from './Shop';
+import LiveStreamAuctionPage from './pages/LiveStreamAuctionPage';
 
 const App = () => {
   return (
@@ -13,6 +14,8 @@ const App = () => {
         <Route path="/admin" component={AdminPage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="/shop" component={Shop} />
+        <Route path="/live" component={LiveStreamAuctionPage} />
+        <Route path="/auctions" component={LiveStreamAuctionPage} />
       </Switch>
     </Router>
   );
