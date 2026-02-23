@@ -1,79 +1,79 @@
 # Keepers Auction
 
-## Overview
-Keepers Auction is an innovative platform designed to streamline the auction process for collectors and enthusiasts. This documentation outlines how to set up the environment, features of the application, API references, and deployment guidance.
+Welcome to the Keepers Auction! This README outlines the features, installation steps, and deployment guide for the Keepers Auction application.
 
-## Setup Instructions
+## Features
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/cjp442/keepersauction-com.git
-   cd keepersauction-com
+- **Real-time Bidding**: Participate in auctions in real-time.
+- **User Profiles**: Create and manage user profiles.
+- **Item Listings**: List items for auction with details.
+- **Notification System**: Get instant notifications about bids and auctions.
+- **Payment Integration**: Secure payment processing for auction items.
+
+## Installation
+
+To clone and run this application, you'll need to have Git and Node.js installed on your machine. 
+
+1. **Clone the repository:**  
+   ```bash  
+   git clone https://github.com/cjp442/keepersauction-com.git  
+   cd keepersauction-com  
+   ```  
+2. **Install dependencies:**  
+   ```bash  
+   npm install  
+   ```  
+3. **Set up environment variables:**  
+   Create a `.env` file in the root directory and add your configuration:
    ```
-
-2. **Install Dependencies**
-   Ensure you have Node.js installed. Then run:
-   ```bash
-   npm install
+   DB_CONNECTION=your_database_connection_string
+   PORT=your_server_port
    ```
-
-3. **Environment Variables**
-   Create a `.env` file in the root directory and add your configurations:
-   ```
-   DATABASE_URL=your_database_url
-   API_KEY=your_api_key
-   ```
-
-4. **Run the Application**
-   Start the development server:
-   ```bash
-   npm start
-   ```
-
-## Feature Overview
-
-- **User Authentication:** Secure login system via OAuth.
-- **Auction Listings:** Create, edit, and delete auction listings.
-- **Bid Management:** Real-time updates on bidding status.
-- **Payment Integration:** Process transactions securely.
-
-## API Documentation
-
-### Authentication
-- **POST /api/auth/login**
-   - Description: Logs in a user and returns authentication tokens.
-   - Request Body:
-     - `username`: string
-     - `password`: string
-
-### Auctions
-- **GET /api/auctions**
-   - Description: Retrieves all auctions.
-   - Response: Array of auction objects.
-
-- **POST /api/auctions**
-   - Description: Creates a new auction.
-   - Request Body:
-     - `title`: string
-     - `description`: string
-     - `startTime`: date
-     - `endTime`: date
+4. **Run the application:**  
+   ```bash  
+   npm start  
+   ```  
+5. Open your browser and go to `http://localhost:<PORT>` to view the application.
 
 ## Deployment Guide
 
-1. **Build the Application**
-   ```bash
-   npm run build
+For deployment, you can use services like Heroku, AWS, or Digital Ocean. Here's a general guide using Heroku:
+
+1. **Create a Heroku account**: If you don’t have one, sign up at [Heroku](https://www.heroku.com/).
+2. **Install the Heroku CLI**: Follow the instructions at [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) to install it.
+3. **Login to Heroku**:  
+   ```bash  
+   heroku login  
+   ```    
+4. **Create a new Heroku app**:  
+   ```bash  
+   heroku create <your-app-name>  
+   ```
+5. **Push your code to Heroku**:  
+   ```bash  
+   git push heroku main  
+   ```  
+6. **Set environment variables on Heroku**:  
+   ```bash  
+   heroku config:set DB_CONNECTION=your_database_connection_string
+   heroku config:set PORT=your_server_port
+   ```  
+7. **Open your deployed application**:  
+   ```bash  
+   heroku open  
    ```
 
-2. **Deploy to Your Server**
-   Upload the contents of the `build` directory to your web server.
+## Contributing
 
-3. **Configuration**
-   Ensure the server is set up with the correct environment variables.
-
-4. **Access the Application**
-   Once deployed, navigate to your domain to access Keepers Auction.
+We welcome contributions! Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) for more details on how to get started.
 
 ## License
-This project is licensed under the MIT License.
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+---
+
+*For assistance, please contact the project maintainer.*
+
+**Date Created:** 2026-02-23 16:55:12 UTC  
+**User:** cjp442
