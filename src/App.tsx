@@ -7,6 +7,7 @@ import AuctionsPage from './pages/AuctionsPage'
 import SettingsPage from './pages/SettingsPage'
 import AdminDashboard from './pages/AdminDashboard'
 import NotFoundPage from './pages/NotFoundPage'
+import GamePage from './pages/GamePage'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <TokenProvider>
         <Router>
           <Routes>
+            <Route path="/game" element={<GamePage />} />
             <Route path="/" element={<AppLayout />}>
               <Route index element={<HomePage />} />
               <Route path="auctions" element={<AuctionsPage />} />
