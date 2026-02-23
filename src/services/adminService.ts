@@ -38,3 +38,4 @@ class AdminService {
 }
 
 export default AdminService;
+export const adminService = AdminService;

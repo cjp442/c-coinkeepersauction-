@@ -1,24 +1,32 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import GamePage from './GamePage';
-import AdminPage from './AdminPage';
-import ProfilePage from './ProfilePage';
-import Shop from './Shop';
-import LiveStreamAuctionPage from './pages/LiveStreamAuctionPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
+import { TokenProvider } from './contexts/TokenContext'
+import AppLayout from './components/AppLayout'
+import HomePage from './pages/HomePage'
+import LiveStreamAuctionPage from './pages/LiveStreamAuctionPage'
+import ProfilePage from './pages/ProfilePage'
+import SettingsPage from './pages/SettingsPage'
+import AdminDashboard from './pages/AdminDashboard'
+import NotFoundPage from './pages/NotFoundPage'
 
-const App = () => {
+export default function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/game" component={GamePage} />
-        <Route path="/admin" component={AdminPage} />
-        <Route path="/profile" component={ProfilePage} />
-        <Route path="/shop" component={Shop} />
-        <Route path="/live" component={LiveStreamAuctionPage} />
-        <Route path="/auctions" component={LiveStreamAuctionPage} />
-      </Switch>
-    </Router>
-  );
-};
-
-export default App;
+    <AuthProvider>
+      <TokenProvider>
+        <Router>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/auctions" element={<LiveStreamAuctionPage />} />
+              <Route path="/live" element={<LiveStreamAuctionPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </Router>
+      </TokenProvider>
+    </AuthProvider>
+  )
+}
