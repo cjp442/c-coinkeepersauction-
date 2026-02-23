@@ -127,3 +127,87 @@ export interface NotificationMessage {
   read: boolean
   created_at: string
 }
+
+export interface KeepersCoin {
+  user_id: string
+  balance: number
+  locked_balance: number
+  updated_at: string
+}
+
+export interface CoinTransaction {
+  id: string
+  user_id: string
+  type: 'purchase' | 'transfer' | 'tax' | 'deposit' | 'withdrawal' | 'reward'
+  amount: number
+  tax_amount: number
+  reference?: string
+  status: 'pending' | 'completed' | 'failed' | 'reversed'
+  created_at: string
+}
+
+export interface RoomDecor {
+  id: string
+  name: string
+  description?: string
+  price_in_coins: number
+  category: string
+  thumbnail_url?: string
+  model_url?: string
+  created_at: string
+}
+
+export interface MemberRoom {
+  id: string
+  user_id: string
+  room_name: string
+  room_design_id?: string
+  decor_ids: string[]
+  created_at: string
+  updated_at: string
+}
+
+export interface MemberDecorInventory {
+  id: string
+  user_id: string
+  decor_id: string
+  quantity: number
+  purchased_at: string
+}
+
+export interface HostRoom {
+  id: string
+  host_user_id: string
+  room_name: string
+  stream_url?: string
+  viewer_count: number
+  is_active: boolean
+  created_at: string
+}
+
+export interface AdminLog {
+  id: string
+  admin_user_id: string
+  action_type: string
+  target_user_id?: string
+  details?: Record<string, unknown>
+  created_at: string
+}
+
+export interface Ban {
+  id: string
+  user_id: string
+  reason: string
+  banned_by_user_id: string
+  banned_at: string
+  unbanned_at?: string
+}
+
+export interface UserProfileExtended {
+  user_id: string
+  avatar_name: string
+  avatar_color: string
+  current_room_id?: string
+  is_seated: boolean
+  created_at: string
+}
