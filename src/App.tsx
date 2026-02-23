@@ -7,13 +7,16 @@ import AuctionsPage from './pages/AuctionsPage'
 import SettingsPage from './pages/SettingsPage'
 import AdminDashboard from './pages/AdminDashboard'
 import GamePage from './pages/GamePage'
+import ProfilePage from './pages/ProfilePage'
 import NotFoundPage from './pages/NotFoundPage'
+import Notifications from './components/Notifications'
 
 function App() {
   return (
     <AuthProvider>
       <TokenProvider>
         <Router>
+          <Notifications />
           <Routes>
             <Route path="/game" element={<GamePage />} />
             <Route path="/" element={<AppLayout />}>
@@ -21,6 +24,7 @@ function App() {
               <Route path="auctions" element={<AuctionsPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="admin" element={<AdminDashboard />} />
+              <Route path="profile" element={<ProfilePage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>

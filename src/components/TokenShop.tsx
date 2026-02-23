@@ -35,7 +35,7 @@ export default function TokenShop({ isOpen, onClose }: TokenShopProps) {
         userId: user.id,
         amount: selected,
         paymentMethod: 'stripe',
-        paymentReference: `pending-${Date.now()}`,
+        paymentReference: crypto.randomUUID(),
       })
       setStatus('success')
     } catch (err) {
