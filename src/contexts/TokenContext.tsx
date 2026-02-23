@@ -35,8 +35,8 @@ export function TokenProvider({ children }: { children: ReactNode }) {
     setLoading(false)
   }, [])
 
-  const addTokens = async (amount: number, _description: string) => {
-    if (!tokens) return
+  const addTokens = (amount: number, _description: string): Promise<void> => {
+    if (!tokens) return Promise.resolve()
     const updated = {
       ...tokens,
       balance: tokens.balance + amount,
@@ -44,10 +44,11 @@ export function TokenProvider({ children }: { children: ReactNode }) {
     }
     setTokens(updated)
     localStorage.setItem('tokens', JSON.stringify(updated))
+    return Promise.resolve()
   }
 
-  const deductTokens = async (amount: number, _description: string) => {
-    if (!tokens || tokens.balance < amount) return
+  const deductTokens = (amount: number, _description: string): Promise<void> => {
+    if (!tokens || tokens.balance < amount) return Promise.resolve()
     const updated = {
       ...tokens,
       balance: tokens.balance - amount,
@@ -55,10 +56,11 @@ export function TokenProvider({ children }: { children: ReactNode }) {
     }
     setTokens(updated)
     localStorage.setItem('tokens', JSON.stringify(updated))
+    return Promise.resolve()
   }
 
-  const moveToSafe = async (amount: number) => {
-    if (!tokens || tokens.balance < amount) return
+  const moveToSafe = (amount: number): Promise<void> => {
+    if (!tokens || tokens.balance < amount) return Promise.resolve()
     const updated = {
       ...tokens,
       balance: tokens.balance - amount,
@@ -67,10 +69,11 @@ export function TokenProvider({ children }: { children: ReactNode }) {
     }
     setTokens(updated)
     localStorage.setItem('tokens', JSON.stringify(updated))
+    return Promise.resolve()
   }
 
-  const moveFromSafe = async (amount: number) => {
-    if (!tokens || tokens.safe_balance < amount) return
+  const moveFromSafe = (amount: number): Promise<void> => {
+    if (!tokens || tokens.safe_balance < amount) return Promise.resolve()
     const updated = {
       ...tokens,
       balance: tokens.balance + amount,
@@ -79,6 +82,7 @@ export function TokenProvider({ children }: { children: ReactNode }) {
     }
     setTokens(updated)
     localStorage.setItem('tokens', JSON.stringify(updated))
+    return Promise.resolve()
   }
 
   return (

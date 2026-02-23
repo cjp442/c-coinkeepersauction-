@@ -24,7 +24,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(false)
   }, [])
 
-  const login = async (email: string, _password: string) => {
+  const login = (email: string, _password: string): Promise<void> => {
     try {
       // API call would go here
       const mockUser: User = {
@@ -36,33 +36,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       setUser(mockUser)
       localStorage.setItem('user', JSON.stringify(mockUser))
+      return Promise.resolve()
     } catch (error) {
       console.error('Login error:', error)
-      throw error
+      return Promise.reject(error)
     }
   }
 
-  const signup = async (email: string, _password: string, username: string, role: string) => {
+  const signup = (email: string, _password: string, username: string, role: string): Promise<void> => {
     try {
       // API call would go here
       const mockUser: User = {
         id: Math.random().toString(),
         email,
         username,
-        role: (role as any) || 'user',
+        role: (role as User['role']) || 'user',
         created_at: new Date().toISOString(),
       }
       setUser(mockUser)
       localStorage.setItem('user', JSON.stringify(mockUser))
+      return Promise.resolve()
     } catch (error) {
       console.error('Signup error:', error)
-      throw error
+      return Promise.reject(error)
     }
   }
 
-  const logout = async () => {
+  const logout = (): Promise<void> => {
     setUser(null)
     localStorage.removeItem('user')
+    return Promise.resolve()
   }
 
   return (

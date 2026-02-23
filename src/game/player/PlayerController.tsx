@@ -92,11 +92,11 @@ export default function PlayerController({
       }
     }
     const onKeyUp = (e: KeyboardEvent) => { keysRef.current.delete(e.code) }
-    window.addEventListener('keydown', onKeyDown)
-    window.addEventListener('keyup', onKeyUp)
+    globalThis.addEventListener('keydown', onKeyDown)
+    globalThis.addEventListener('keyup', onKeyUp)
     return () => {
-      window.removeEventListener('keydown', onKeyDown)
-      window.removeEventListener('keyup', onKeyUp)
+      globalThis.removeEventListener('keydown', onKeyDown)
+      globalThis.removeEventListener('keyup', onKeyUp)
     }
   }, [setCameraMode, handleInteract])
 
