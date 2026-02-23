@@ -7,12 +7,14 @@ import AuctionsPage from './pages/AuctionsPage'
 import SettingsPage from './pages/SettingsPage'
 import AdminDashboard from './pages/AdminDashboard'
 import NotFoundPage from './pages/NotFoundPage'
+import NotificationSystem from './components/notifications/NotificationSystem'
 
 function App() {
   return (
     <AuthProvider>
       <TokenProvider>
         <Router>
+          <NotificationSystem />
           <Routes>
             <Route path="/" element={<AppLayout />}>
               <Route index element={<HomePage />} />
