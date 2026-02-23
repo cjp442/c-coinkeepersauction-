@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei'; // Example for controls
+import React, { useState, useEffect } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
 
 const Avatar = () => {
-    const [position, setPosition] = useState([0, 0, 0]); // Position of the avatar
-    const [isSitting, setIsSitting] = useState(false);
+  const [position, setPosition] = useState<[number, number, number]>([0, 0, 0])
+  const [isSitting, setIsSitting] = useState(false)
 
-    // Function to handle walking animations with elbow and knee bending
-    const walk = () => {
-        if (!isSitting) {
-            // Logic for walking animation
-        }
-    };
+  const walk = () => {
+    if (!isSitting) {
+      // Logic for walking animation
+    }
+  }
 
-    // Function to handle sitting animation
-    const sit = () => {
-        setIsSitting(!isSitting);
-    };
+  const sit = () => {
+    setIsSitting(!isSitting)
+  }
 
-    useEffect(() => {
-        walk(); // Call walk on component mount or position change
-    }, [position]);
+  useEffect(() => {
+    walk()
+  }, [position])
 
-    return (
-        <Canvas>
-            <OrbitControls />
-            {/* Humanoid model rendering logic */}
-            <mesh position={position}>
-                {/* Add humanoid model here */}
-            </mesh>
-        </Canvas>
-    );
-};
+  return (
+    <Canvas>
+      <OrbitControls />
+      <mesh position={position}>
+        {/* Humanoid model goes here */}
+      </mesh>
+    </Canvas>
+  )
+}
 
-export default Avatar;
+export default Avatar

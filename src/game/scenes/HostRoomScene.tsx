@@ -1,5 +1,5 @@
-import React from 'react';
-import { Stage, SpotLight, WallScreen, Chair, Decor } from '../components';
+import React from 'react'
+import { Stage, SpotLight, WallScreen, Chair, Decor } from '../components'
 
 const HostRoomScene = () => {
   return (

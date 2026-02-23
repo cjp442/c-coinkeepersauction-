@@ -20,6 +20,7 @@ export default function AuctionItemCard({ auction, isActive = false, onClick }: 
       const timer = setTimeout(() => setGavelVisible(false), 3000)
       return () => clearTimeout(timer)
     }
+    return undefined
   }, [auction.status])
 
   const statusColor =

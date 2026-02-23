@@ -1,41 +1,52 @@
 // src/services/adminService.ts
+import { AdminUser } from '../types/admin'
 
 class AdminService {
-    // Function to get all members
-    static getAllMembers() {
-        // Implementation here
-    }
+  async getUsers(): Promise<AdminUser[]> {
+    // Stub: returns mock data until backend is wired up
+    return []
+  }
 
-    // Function to get all transactions
-    static getAllTransactions() {
-        // Implementation here
-    }
+  async banUser(userId: string, reason: string, _adminId: string): Promise<void> {
+    console.log(`Ban user ${userId}: ${reason}`)
+  }
 
-    // Function to ban a user
-    static banUser(userId: string) {
-        // Implementation here
-    }
+  async unbanUser(userId: string, _adminId: string): Promise<void> {
+    console.log(`Unban user ${userId}`)
+  }
 
-    // Function to delete a user
-    static deleteUser(userId: string) {
-        // Implementation here
-    }
+  async setUserRole(userId: string, role: string, _adminId: string): Promise<void> {
+    console.log(`Set role of ${userId} to ${role}`)
+  }
 
-    // Function to get admin logs
-    static getAdminLogs() {
-        // Implementation here
-    }
+  static getAllMembers() {
+    return []
+  }
 
-    // Function to update settings
-    static updateSettings(newSettings: object) {
-        // Implementation here
-    }
+  static getAllTransactions() {
+    return []
+  }
 
-    // Function to export data
-    static exportData() {
-        // Implementation here
-    }
+  static banUser(userId: string) {
+    console.log(`Ban user ${userId}`)
+  }
+
+  static deleteUser(userId: string) {
+    console.log(`Delete user ${userId}`)
+  }
+
+  static getAdminLogs() {
+    return []
+  }
+
+  static updateSettings(_newSettings: object) {
+    // no-op stub
+  }
+
+  static exportData() {
+    return null
+  }
 }
 
-export default AdminService;
-export const adminService = AdminService;
+export default AdminService
+export const adminService = new AdminService()
