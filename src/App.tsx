@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import AuctionsPage from './pages/AuctionsPage'
 import SettingsPage from './pages/SettingsPage'
 import AdminDashboard from './pages/AdminDashboard'
+import GameLobbyPage from './pages/GameLobbyPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
               <Route path="admin" element={<AdminDashboard />} />
               <Route path="*" element={<NotFoundPage />} />
             </Route>
+            {/* Game lobby runs outside AppLayout to use the full viewport */}
+            <Route path="lobby" element={<GameLobbyPage />} />
           </Routes>
         </Router>
       </TokenProvider>

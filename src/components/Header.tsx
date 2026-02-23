@@ -20,6 +20,9 @@ export default function Header() {
           <Link to="/auctions" className="hover:text-amber-500 transition">
             Auctions
           </Link>
+          <Link to="/lobby" className="hover:text-amber-500 transition">
+            Lobby
+          </Link>
           {user?.role === 'admin' && (
             <Link to="/admin" className="hover:text-amber-500 transition">
               Admin
@@ -70,6 +73,9 @@ export default function Header() {
         <nav className="md:hidden bg-slate-700 p-4 space-y-2">
           <Link to="/auctions" className="block hover:text-amber-500">
             Auctions
+          </Link>
+          <Link to="/lobby" className="block hover:text-amber-500">
+            Lobby
           </Link>
           {user?.role === 'admin' && (
             <Link to="/admin" className="block hover:text-amber-500">
