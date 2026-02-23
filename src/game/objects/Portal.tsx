@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Portal.css';
 
-const Portal = ({ onEnter }) => {
+const Portal = ({ onEnter }: { onEnter: () => void }) => {
     const [isNear, setIsNear] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 

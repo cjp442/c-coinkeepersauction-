@@ -1,26 +1,21 @@
 // src/services/gameService.ts
 
-// Function to get lobby state
-export function getLobbyState() {
-    // Logic to retrieve the lobby state
+export function getLobbyState(): Record<string, unknown> {
+  return {}
 }
 
-// Function to get room data
-export function getRoomData(roomId) {
-    // Logic to retrieve data for a specific room
+export function getRoomData(roomId: string): Record<string, unknown> {
+  return { roomId }
 }
 
-// Function to get online players
-export function getOnlinePlayers() {
-    // Logic to retrieve a list of online players
+export function getOnlinePlayers(): string[] {
+  return []
 }
 
-// Function to update player position
-export function updatePlayerPosition(playerId, newPosition) {
-    // Logic to update the position of a player
+export function updatePlayerPosition(playerId: string, newPosition: { x: number; y: number; z: number }): void {
+  console.log(`Player ${playerId} moved to`, newPosition)
 }
 
-// Function for portal transitions
-export function portalTransition(playerId, portalId) {
-    // Logic for handling a player's transition through a portal
+export function portalTransition(playerId: string, portalId: string): void {
+  console.log(`Player ${playerId} entered portal ${portalId}`)
 }

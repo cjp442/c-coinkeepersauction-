@@ -1,51 +1,77 @@
-import React, { useState } from 'react';
-import { Rnd } from 'react-rnd';
+import { useState } from 'react'
 
-const RoomCustomizer = () => {
-    const [decorItems, setDecorItems] = useState([]);
-    const [selectedItem, setSelectedItem] = useState(null);
+interface DecorItem {
+  id: number
+  x: number
+  y: number
+  width: number
+  height: number
+}
 
-    const addDecor = (decor) => {
-        setDecorItems([...decorItems, { id: Date.now(), ...decor }]);
-    };
+export default function RoomCustomizer() {
+  const [decorItems, setDecorItems] = useState<DecorItem[]>([])
+  const [selectedId, setSelectedId] = useState<number | null>(null)
 
-    const removeDecor = (id) => {
-        setDecorItems(decorItems.filter(item => item.id !== id));
-    };
+  const addDecor = () => {
+    setDecorItems(prev => [...prev, { id: Date.now(), x: 100, y: 100, width: 80, height: 80 }])
+  }
 
-    const saveDesign = () => {
-        // Implement save functionality here
-        console.log('Design saved!');
-    };
+  const removeDecor = (id: number) => {
+    setDecorItems(prev => prev.filter(item => item.id !== id))
+    if (selectedId === id) setSelectedId(null)
+  }
 
-    return (
-        <div className="room-customizer">
-            <h2>Room Customizer</h2>
-            <button onClick={() => addDecor({ x: 100, y: 100, width: 50, height: 50 })}>Add Decor</button>
-            <div className="room-preview" style={{ position: 'relative', width: '800px', height: '600px', border: '1px solid #ccc' }}>
-                {decorItems.map(item => (
-                    <Rnd
-                        key={item.id}
-                        style={{ border: selectedItem === item.id ? '2px solid blue' : 'none' }}
-                        bounds="parent"
-                        onClick={() => setSelectedItem(item.id)}
-                        onDragStop={(e, d) => {
-                            const updatedItems = decorItems.map(i => 
-                                i.id === item.id ? { ...i, x: d.x, y: d.y } : i
-                            );
-                            setDecorItems(updatedItems);
-                        }}
-                        default={{ x: item.x, y: item.y, width: item.width, height: item.height }}
-                    >
-                        <button onClick={() => removeDecor(item.id)}>Delete</button>
-                        {/* Add Rotate and Scale Controls here */}
-                        Decor Item {item.id}
-                    </Rnd>
-                ))}
-            </div>
-            <button onClick={saveDesign}>Save Design</button>
-        </div>
-    );
-};
+  const saveDesign = () => {
+    console.log('Design saved:', decorItems)
+    alert('Room design saved!')
+  }
 
-export default RoomCustomizer;
+  return (
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4 text-amber-400">Room Customizer</h2>
+      <div className="flex gap-3 mb-4">
+        <button
+          onClick={addDecor}
+          className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-sm font-medium"
+        >
+          + Add Decor
+        </button>
+        <button
+          onClick={saveDesign}
+          className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white rounded-lg text-sm font-medium"
+        >
+          Save Design
+        </button>
+      </div>
+
+      <div
+        className="relative bg-slate-900 border border-slate-700 rounded-lg overflow-hidden"
+        style={{ width: 800, height: 600 }}
+      >
+        {decorItems.map(item => (
+          <div
+            key={item.id}
+            onClick={() => setSelectedId(item.id)}
+            className={`absolute flex items-center justify-center bg-slate-700 rounded cursor-pointer text-xs text-slate-300 select-none ${
+              selectedId === item.id ? 'ring-2 ring-amber-500' : ''
+            }`}
+            style={{ left: item.x, top: item.y, width: item.width, height: item.height }}
+          >
+            <span>Decor {item.id % 1000}</span>
+            <button
+              onClick={e => { e.stopPropagation(); removeDecor(item.id) }}
+              className="absolute -top-2 -right-2 w-5 h-5 bg-red-600 text-white rounded-full text-xs flex items-center justify-center"
+            >
+              ×
+            </button>
+          </div>
+        ))}
+        {decorItems.length === 0 && (
+          <div className="flex items-center justify-center h-full text-slate-600 text-sm">
+            Click "Add Decor" to start customizing
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}

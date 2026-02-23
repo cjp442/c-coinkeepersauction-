@@ -1,46 +1,48 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
-const useAuction = (auctionId) => {
-    const [auction, setAuction] = useState(null);
-    const [bid, setBid] = useState(0);
-    const [isBidding, setIsBidding] = useState(false);
+interface AuctionData {
+  id: string
+  title: string
+  currentBid: number
+  status: 'active' | 'ended'
+}
 
-    useEffect(() => {
-        // Logic to fetch auction details and set up real-time updates
-        const fetchAuction = async () => {
-            // Fetch auction data based on auctionId
-            const response = await fetch(`/api/auctions/${auctionId}`);
-            const data = await response.json();
-            setAuction(data);
-        };
+const useAuction = (auctionId: string) => {
+  const [auction, setAuction] = useState<AuctionData | null>(null)
+  const [bid, setBid] = useState(0)
+  const [isBidding, setIsBidding] = useState(false)
 
-        fetchAuction();
+  useEffect(() => {
+    const fetchAuction = async () => {
+      const response = await fetch(`/api/auctions/${auctionId}`)
+      const data = await response.json() as AuctionData
+      setAuction(data)
+    }
 
-        // Implement real-time updates logic here
-        const interval = setInterval(fetchAuction, 5000); // Example: fetch every 5 seconds
+    fetchAuction()
 
-        return () => clearInterval(interval);
-    }, [auctionId]);
+    const interval = setInterval(fetchAuction, 5000)
+    return () => clearInterval(interval)
+  }, [auctionId])
 
-    const placeBid = async () => {
-        setIsBidding(true);
-        // Logic to place a bid
-        const response = await fetch(`/api/auctions/${auctionId}/bid`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ bid }),
-        });
-        const result = await response.json();
-        // Handle the result (e.g., update state, show a message)
-        if (result.success) {
-            setAuction(result.auction);
-        }
-        setIsBidding(false);
-    };
+  const placeBid = async () => {
+    setIsBidding(true)
+    try {
+      const response = await fetch(`/api/auctions/${auctionId}/bid`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bid }),
+      })
+      const result = await response.json() as { success: boolean; auction: AuctionData }
+      if (result.success) {
+        setAuction(result.auction)
+      }
+    } finally {
+      setIsBidding(false)
+    }
+  }
 
-    return { auction, bid, setBid, placeBid, isBidding };
-};
+  return { auction, bid, setBid, placeBid, isBidding }
+}
 
-export default useAuction;
+export default useAuction

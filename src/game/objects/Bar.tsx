@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../../supabaseClient'; // Adjust the import according to your Supabase client setup
+import React, { useState, useEffect } from 'react'
+import { supabase } from '../../lib/supabase'
 
 const Bar = () => {
     const [price, setPrice] = useState(0);
@@ -8,15 +8,16 @@ const Bar = () => {
     const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-        // Fetch real-time price from your API or state management here
+        const fetchCurrentPrice = async (): Promise<number> => {
+            // Placeholder: replace with real API call
+            return 1.0
+        }
         const fetchPrice = async () => {
-            // Fetch logic to get the current price
-            const currentPrice = await fetchCurrentPrice();
-            setPrice(currentPrice);
-        };
-
-        fetchPrice();
-    }, []);
+            const currentPrice = await fetchCurrentPrice()
+            setPrice(currentPrice)
+        }
+        fetchPrice()
+    }, [])
 
     useEffect(() => {
         // Calculate total price including tax

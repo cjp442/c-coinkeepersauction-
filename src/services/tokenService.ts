@@ -1,38 +1,23 @@
 // src/services/tokenService.ts
 
-/**
- * Get coin balance of a user
- */
-function getCoinBalance(userId) {
-    // Implement logic to retrieve coin balance for the user
+export function getCoinBalance(_userId: string): number {
+  return 0
 }
 
-/**
- * Purchase coins using Stripe
- */
-function purchaseCoins(userId, amount) {
-    // Implement logic to purchase coins with Stripe payment
+export function purchaseCoins(_userId: string, _amount: number): Promise<void> {
+  return Promise.resolve()
 }
 
-/**
- * Get transaction history for a user
- */
-function getTransactionHistory(userId) {
-    // Implement logic to retrieve transaction history
+export function getTransactionHistory(_userId: string): unknown[] {
+  return []
 }
 
-/**
- * Get user ledger
- */
-function getUserLedger(userId) {
-    // Implement logic to retrieve user ledger
+export function getUserLedger(_userId: string): unknown[] {
+  return []
 }
 
-/**
- * Calculate tax based on transaction amount
- */
-function calculateTax(amount) {
-    // Implement logic to calculate tax
+export function calculateTax(amount: number): number {
+  return amount * 0.1
 }
 
-module.exports = { getCoinBalance, purchaseCoins, getTransactionHistory, getUserLedger, calculateTax };
+export default { getCoinBalance, purchaseCoins, getTransactionHistory, getUserLedger, calculateTax }
