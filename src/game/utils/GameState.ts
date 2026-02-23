@@ -1,46 +1,49 @@
-import { create } from 'zustand'
-import { GameState, OnlinePlayer } from '../../types/game'
+import create from 'zustand';
 
-interface GameStore extends GameState {
-  onlinePlayers: OnlinePlayer[]
-  setScene: (scene: GameState['currentScene'], roomId?: string) => void
-  setPlayerPosition: (position: { x: number; y: number; z: number }) => void
-  setPlayerRotation: (rotation: number) => void
-  setCameraMode: (mode: GameState['cameraMode']) => void
-  setSitting: (isSitting: boolean, seatId?: string) => void
-  setNearbyInteractable: (id: string | null) => void
-  setOnlinePlayers: (players: OnlinePlayer[]) => void
+// Define the types for your states
+interface PlayerState {
+    players: string[];
+    addPlayer: (name: string) => void;
+    removePlayer: (name: string) => void;
 }
 
-export const useGameStore = create<GameStore>((set) => ({
-  currentScene: 'lobby',
-  currentRoomId: null,
-  playerPosition: { x: 0, y: 0, z: 5 },
-  playerRotation: 0,
-  cameraMode: 'third_person',
-  isSitting: false,
-  seatId: null,
-  nearbyInteractable: null,
-  onlinePlayers: [],
+interface RoomState {
+    roomId: string;
+    roomName: string;
+    updateRoomName: (name: string) => void;
+}
 
-  setScene: (scene, roomId) =>
-    set({ currentScene: scene, currentRoomId: roomId ?? null }),
+interface FinanceState {
+    balance: number;
+    addFunds: (amount: number) => void;
+    deductFunds: (amount: number) => void;
+}
 
-  setPlayerPosition: (position) =>
-    set({ playerPosition: position }),
+interface AdminState {
+    isAdmin: boolean;
+    setAdmin: (status: boolean) => void;
+}
 
-  setPlayerRotation: (rotation) =>
-    set({ playerRotation: rotation }),
+// Define the Zustand store
+interface Store extends PlayerState, RoomState, FinanceState, AdminState {}
 
-  setCameraMode: (mode) =>
-    set({ cameraMode: mode }),
-
-  setSitting: (isSitting, seatId) =>
-    set({ isSitting, seatId: seatId ?? null }),
-
-  setNearbyInteractable: (id) =>
-    set({ nearbyInteractable: id }),
-
-  setOnlinePlayers: (players) =>
-    set({ onlinePlayers: players }),
-}))
+export const useGameState = create<Store>((set) => ({
+    // Player state management
+    players: [],
+    addPlayer: (name) => set((state) => ({ players: [...state.players, name] })),
+    removePlayer: (name) => set((state) => ({ players: state.players.filter(player => player !== name) })),
+    
+    // Room state management
+    roomId: '',
+    roomName: '',
+    updateRoomName: (name) => set({ roomName: name }),
+    
+    // Finance state management
+    balance: 0,
+    addFunds: (amount) => set((state) => ({ balance: state.balance + amount })),
+    deductFunds: (amount) => set((state) => ({ balance: state.balance - amount })),
+    
+    // Admin state management
+    isAdmin: false,
+    setAdmin: (status) => set({ isAdmin: status }),
+}));
