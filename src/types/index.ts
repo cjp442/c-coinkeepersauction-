@@ -54,8 +54,10 @@ export interface LiveStream {
   title: string
   description: string
   thumbnail_url?: string
+  hls_url?: string
   viewer_count: number
   is_live: boolean
+  status: 'offline' | 'live' | 'ended'
   stream_key?: string
   started_at?: string
   ended_at?: string
@@ -127,3 +129,62 @@ export interface NotificationMessage {
   read: boolean
   created_at: string
 }
+
+export interface StreamChatMessage {
+  id: string
+  stream_id: string
+  user_id: string
+  username: string
+  message: string
+  is_moderated: boolean
+  created_at: string
+}
+
+export interface StreamTip {
+  id: string
+  stream_id: string
+  tipper_id: string
+  tipper_username: string
+  amount: number
+  message?: string
+  created_at: string
+}
+
+export interface StreamVOD {
+  id: string
+  stream_id: string
+  host_id: string
+  title: string
+  duration: number
+  recording_url: string
+  thumbnail_url?: string
+  views: number
+  created_at: string
+}
+
+export interface StreamSchedule {
+  id: string
+  host_id: string
+  title: string
+  description?: string
+  scheduled_at: string
+  notified: boolean
+  created_at: string
+}
+
+export interface StreamStats {
+  viewer_count: number
+  peak_viewer_count: number
+  total_tips: number
+  duration_seconds: number
+}
+
+export interface StreamAlert {
+  id: string
+  type: 'follower' | 'tip' | 'raid'
+  stream_id: string
+  data: Record<string, unknown>
+  created_at: string
+}
+
+export type StreamQuality = 'auto' | '720p' | '1080p'
