@@ -1,12 +1,12 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPanel: React.FC = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const isOwner = true; // Replace with actual owner check logic
 
     if (!isOwner) {
-        history.push('/unauthorized'); // Redirect to unauthorized page if not an owner
+        navigate('/'); // Redirect to home page if not an owner
         return null;
     }
 
