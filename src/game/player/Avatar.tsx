@@ -31,7 +31,7 @@ export default function Avatar({
   const leftCalfRef = useRef<THREE.Mesh>(null)
   const rightCalfRef = useRef<THREE.Mesh>(null)
 
-  const { getAnimValues } = useAvatarAnimation(animState, 1)
+  const { getAnimValues } = useAvatarAnimation(animState)
   const clockRef = useRef(0)
 
   useFrame((_, delta) => {

@@ -10,7 +10,7 @@ interface PortalProps {
   playerPosition: { x: number; y: number; z: number }
 }
 
-export default function Portal({ portal, onEnter, playerPosition: _playerPosition }: PortalProps) {
+export default function Portal({ portal, onEnter }: PortalProps) {
   const [, setHovered] = useState(false)
   const glowRef = useRef<THREE.Mesh>(null)
 

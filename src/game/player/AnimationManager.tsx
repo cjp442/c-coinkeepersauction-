@@ -1,6 +1,6 @@
 export type AnimationState = 'idle' | 'walk' | 'run' | 'sit'
 
-export function useAvatarAnimation(state: AnimationState, _speed: number) {
+export function useAvatarAnimation(state: AnimationState) {
   const getAnimValues = (elapsed: number) => {
     const t = elapsed * (state === 'run' ? 2.5 : state === 'walk' ? 1.5 : 0.8)
 
@@ -61,8 +61,4 @@ export function useAvatarAnimation(state: AnimationState, _speed: number) {
   }
 
   return { getAnimValues }
-}
-
-export default function AnimationManager() {
-  return null
 }
