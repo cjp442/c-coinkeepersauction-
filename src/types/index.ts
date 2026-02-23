@@ -127,3 +127,81 @@ export interface NotificationMessage {
   read: boolean
   created_at: string
 }
+
+// --- Multiplayer / Social Types ---
+
+export type EmoteType = 'wave' | 'dance' | 'celebrate'
+
+export interface PlayerPresence {
+  user_id: string
+  username: string
+  avatar_id?: string
+  scene: string
+  room_id?: string
+  position: { x: number; y: number; z: number }
+  rotation: number
+  animation: 'idle' | 'walk' | 'run' | 'sit'
+  emote?: EmoteType | null
+  online_at: string
+}
+
+export interface ChatMessage {
+  id: string
+  channel: 'global' | 'guild' | 'private'
+  channel_id?: string   // guild_id for guild chat, target user_id for private
+  sender_id: string
+  sender_username: string
+  content: string
+  created_at: string
+}
+
+export type FriendRequestStatus = 'pending' | 'accepted' | 'declined'
+
+export interface FriendRequest {
+  id: string
+  requester_id: string
+  requester_username: string
+  addressee_id: string
+  addressee_username: string
+  status: FriendRequestStatus
+  created_at: string
+}
+
+export interface BlockedPlayer {
+  id: string
+  blocker_id: string
+  blocked_id: string
+  blocked_username: string
+  created_at: string
+}
+
+export interface Guild {
+  id: string
+  name: string
+  description?: string
+  owner_id: string
+  owner_username: string
+  member_count: number
+  created_at: string
+}
+
+export interface GuildMember {
+  guild_id: string
+  user_id: string
+  username: string
+  role: 'owner' | 'officer' | 'member'
+  joined_at: string
+}
+
+export type LeaderboardCategory = 'top_spenders' | 'most_wins' | 'highest_bids'
+
+export type PlayerTier = 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond'
+
+export interface LeaderboardEntry {
+  rank: number
+  user_id: string
+  username: string
+  score: number
+  tier: PlayerTier
+  category: LeaderboardCategory
+}
