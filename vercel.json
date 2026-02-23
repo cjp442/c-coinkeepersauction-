@@ -1,1 +1,1 @@
-{"buildCommand":"npm run build","outputDirectory":"dist","framework":"vite","installCommand":"npm ci","env":{"VITE_DOMAIN":"keepersauction.com","VITE_HOST_PHONE":"606-412-3121"},"git":{"deploymentEnabled":true}}
+{\n  "build": {\n    "env": {\n      "API_URL": "https://api.example.com",\n      "ANOTHER_SECRET": "secret_value"\n    }\n  },\n  "production": {\n    "env": {\n      "NODE_ENV": "production"\n    }\n  }\n}
