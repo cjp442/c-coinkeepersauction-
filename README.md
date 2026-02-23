@@ -1,86 +1,79 @@
-# CoinKeepersAuction - Complete Live Auction Platform
+# Keepers Auction
 
-A comprehensive real-time auction platform for coins and bullion with 3D interactive rooms, live streaming, games, and full token-based economy.
+## Overview
+Keepers Auction is an innovative platform designed to streamline the auction process for collectors and enthusiasts. This documentation outlines how to set up the environment, features of the application, API references, and deployment guidance.
 
-## Features
+## Setup Instructions
 
-- 🏠 **3D Interactive Rooms** - Avatar-based 3D rooms with real-time multiplayer
-- 🎬 **Live Streaming** - WebRTC streaming with OBS integration
-- 🎰 **Gaming** - Wheel of Fortune, Pool, Poker, Darts with token rewards
-- 🔨 **Live Auctions** - Real-time bidding with seller verification
-- 👥 **Private Rooms** - VIP-only customizable rooms with scheduling
-- 🎤 **Voice Chat** - VIP voice communication in 3D rooms
-- 💰 **Token Economy** - Internal token-based payment system
-- 📊 **Admin Dashboard** - Comprehensive site management
-- 📱 **FedEx Shipping** - Integrated shipping with tracking
-- 🔐 **Legal Framework** - Full compliance and user agreements
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/cjp442/keepersauction-com.git
+   cd keepersauction-com
+   ```
 
-## Quick Start
+2. **Install Dependencies**
+   Ensure you have Node.js installed. Then run:
+   ```bash
+   npm install
+   ```
 
-```bash
-# Install dependencies
-npm install
+3. **Environment Variables**
+   Create a `.env` file in the root directory and add your configurations:
+   ```
+   DATABASE_URL=your_database_url
+   API_KEY=your_api_key
+   ```
 
-# Copy environment file
-cp .env.example .env.local
+4. **Run the Application**
+   Start the development server:
+   ```bash
+   npm start
+   ```
 
-# Add your Supabase credentials to .env.local
+## Feature Overview
 
-# Start development server
-npm run dev
-```
+- **User Authentication:** Secure login system via OAuth.
+- **Auction Listings:** Create, edit, and delete auction listings.
+- **Bid Management:** Real-time updates on bidding status.
+- **Payment Integration:** Process transactions securely.
 
-## Project Structure
+## API Documentation
 
-```
-src/
-├── components/        # React components
-│   ├── ui/           # shadcn/ui components
-│   ├── sections/     # Page sections
-│   ├── 3d/          # Three.js 3D components
-│   └── features/    # Feature-specific components
-├── contexts/        # React context providers
-├── hooks/          # Custom React hooks
-├── services/       # API and Supabase services
-├── types/          # TypeScript type definitions
-├── lib/            # Utility functions
-└── styles/         # CSS and Tailwind
-```
+### Authentication
+- **POST /api/auth/login**
+   - Description: Logs in a user and returns authentication tokens.
+   - Request Body:
+     - `username`: string
+     - `password`: string
 
-## Tech Stack
+### Auctions
+- **GET /api/auctions**
+   - Description: Retrieves all auctions.
+   - Response: Array of auction objects.
 
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS, shadcn/ui
-- **3D**: Three.js, React Three Fiber
-- **Backend**: Supabase
-- **Real-time**: Supabase Realtime
-- **Streaming**: WebRTC
-- **Payment**: Internal token system
-- **Shipping**: FedEx API
+- **POST /api/auctions**
+   - Description: Creates a new auction.
+   - Request Body:
+     - `title`: string
+     - `description`: string
+     - `startTime`: date
+     - `endTime`: date
 
-## Environment Variables
+## Deployment Guide
 
-See `.env.example` for required environment variables.
+1. **Build the Application**
+   ```bash
+   npm run build
+   ```
 
-## Building for Production
+2. **Deploy to Your Server**
+   Upload the contents of the `build` directory to your web server.
 
-```bash
-npm run build
-npm run preview
-```
+3. **Configuration**
+   Ensure the server is set up with the correct environment variables.
 
-## Deployment
+4. **Access the Application**
+   Once deployed, navigate to your domain to access Keepers Auction.
 
-Deploy to Vercel or Netlify using the provided configuration files.
-
-## Legal
-
-All users must agree to Terms of Service before accessing the platform. See `/legal/terms.md` for details.
-
-## Support
-
-For hosting and platform inquiries, call: **(606) 412-3121**
-
----
-
-**CoinKeepersAuction.com** - Live Auctions for Coins & Bullion
+## License
+This project is licensed under the MIT License.
