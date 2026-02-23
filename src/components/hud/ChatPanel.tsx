@@ -22,6 +22,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   { id: '1', sender: 'System', text: 'Welcome to the room!', timestamp: new Date() },
 ]
 
+// TODO: use roomId to load/save room-specific chat messages via API
 export default function ChatPanel({ roomId: _roomId, isOpen = true, onClose }: ChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES)
   const [input, setInput] = useState('')

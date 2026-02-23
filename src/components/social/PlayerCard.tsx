@@ -17,6 +17,7 @@ interface Props {
   onReport?: () => void
 }
 
+// TODO: use playerId to fetch real player data from API
 export default function PlayerCard({ playerId: _playerId, playerName, level = 1, status = 'online', onReport }: Props) {
   const [friendAdded, setFriendAdded] = useState(false)
   const [reportConfirm, setReportConfirm] = useState(false)

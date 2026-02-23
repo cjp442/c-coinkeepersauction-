@@ -30,6 +30,7 @@ interface Props {
   onClose?: () => void
 }
 
+// TODO: use roomId to load/save room-specific decor layouts via API
 export default function RoomCustomizer({ roomId: _roomId, onClose }: Props) {
   const [selectedItem, setSelectedItem] = useState<DecorItem | null>(null)
   const [rotation, setRotation] = useState(0)

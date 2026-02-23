@@ -6,14 +6,14 @@ interface BanConfirmModalProps {
   userName?: string
   userId?: string
   isBanned?: boolean
-  onConfirm: (reason: string) => void
+  onConfirm: (reason: string, userId?: string) => void
   onClose: () => void
 }
 
 export default function BanConfirmModal({
   isOpen,
   userName,
-  userId: _userId,
+  userId,
   isBanned,
   onConfirm,
   onClose,
@@ -27,7 +27,7 @@ export default function BanConfirmModal({
 
   const handleConfirm = () => {
     if (!isUnban && !reason.trim()) return
-    onConfirm(reason.trim())
+    onConfirm(reason.trim(), userId)
     setReason('')
   }
 

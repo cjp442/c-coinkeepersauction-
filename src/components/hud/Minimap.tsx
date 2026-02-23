@@ -13,6 +13,7 @@ interface MinimapProps {
 const GRID_COLS = 10
 const GRID_ROWS = 8
 const CELL_SIZE = 12
+const EDGE_PADDING = 4
 
 export default function Minimap({ roomName, players = [] }: MinimapProps) {
   const width = GRID_COLS * CELL_SIZE
@@ -59,8 +60,8 @@ export default function Minimap({ roomName, players = [] }: MinimapProps) {
 
         {/* Player dots */}
         {players.map((p) => {
-          const cx = Math.min(Math.max(p.x * width, 4), width - 4)
-          const cy = Math.min(Math.max(p.y * height, 4), height - 4)
+          const cx = Math.min(Math.max(p.x * width, EDGE_PADDING), width - EDGE_PADDING)
+          const cy = Math.min(Math.max(p.y * height, EDGE_PADDING), height - EDGE_PADDING)
           const isCurrent = p.id === currentId
           return (
             <g key={p.id}>

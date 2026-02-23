@@ -46,6 +46,7 @@ interface Props {
   onClose?: () => void
 }
 
+// TODO: use userId to fetch real ledger data from API for the specific user
 export default function AdminLedgerView({ userId: _userId, userName = 'Unknown User', onClose }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>('dateTime')
   const [sortDir, setSortDir] = useState<SortDir>('desc')
