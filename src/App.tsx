@@ -1,21 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Auction from './components/Auction';
-import Dashboard from './components/Dashboard';
-import Multiplayer from './components/Multiplayer';
-import Layout from './components/Layout';
+import React from 'react'
+import GameEngine from './game/GameEngine'
 
 function App() {
-    return (
-        <Router>
-            <Layout>
-                <Routes>
-                    <Route path='/' element={<Dashboard />} />
-                    <Route path='/auction' element={<Auction />} />
-                    <Route path='/multiplayer' element={<Multiplayer />} />
-                </Routes>
-            </Layout>
-        </Router>
-    );
+    return <GameEngine />
 }
 
-export default App;
+export default App
