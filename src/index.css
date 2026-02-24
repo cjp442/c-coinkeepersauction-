@@ -1,8 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+/* Global Styles */
 body {
-  @apply bg-slate-900 text-white;
-  font-feature-settings: "rounding-mode" round;
+    background-color: #121212; /* Dark background */
+    color: #E0E0E0; /* Light text color */
+    font-family: Arial, sans-serif; /* Default font */
+}
+
+a {
+    color: #BB86FC; /* Link color */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF; /* Headings color */
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+    width: 12px; /* Scrollbar width */
+}
+
+::-webkit-scrollbar-track {
+    background: #1F1F1F; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #BB86FC; /* Scroll thumb color */
+    border-radius: 10px; /* Round edges */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #9B5FBF; /* Hover state */
 }
