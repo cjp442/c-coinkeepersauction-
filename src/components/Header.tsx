@@ -23,6 +23,9 @@ export default function Header() {
           <Link to="/game" className="hover:text-amber-500 transition">
             🎮 Game Lobby
           </Link>
+          <Link to="/tokens" className="hover:text-amber-500 transition">
+            🪙 Buy Tokens
+          </Link>
           {user?.role === 'admin' && (
             <Link to="/admin" className="hover:text-amber-500 transition">
               Admin
@@ -76,6 +79,9 @@ export default function Header() {
           </Link>
           <Link to="/game" className="block hover:text-amber-500">
             🎮 Game Lobby
+          </Link>
+          <Link to="/tokens" className="block hover:text-amber-500">
+            🪙 Buy Tokens
           </Link>
           {user?.role === 'admin' && (
             <Link to="/admin" className="block hover:text-amber-500">
