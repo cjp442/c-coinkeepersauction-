@@ -1,1 +1,9 @@
-{\n  \"compilerOptions\": {\n    \"target\": \"es6\",\n    \"module\": \"commonjs\",\n    \"strict\": true,\n    \"jsx\": \"react\",\n    \"moduleResolution\": \"node\"\n  }\n}
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "jsx": "react",
+    "moduleResolution": "node"
+  }
+}
