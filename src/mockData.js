@@ -1,0 +1,1 @@
+// This file contains mock data, demo users, and hardcoded test data. It needs to be removed.\n\n// Example of mock user data: { id: 1, name: 'Test User', email: 'test@example.com' }\n// This can be replaced with real data fetched from Supabase.
