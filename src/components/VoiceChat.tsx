@@ -26,6 +26,8 @@ const VoiceChat: React.FC = () => {
       <span>🎤 Voice Chat</span>
       <button
         onClick={() => setMuted((m) => !m)}
+        aria-label={muted ? 'Unmute microphone' : 'Mute microphone'}
+        aria-pressed={!muted}
         style={{
           padding: '6px 12px',
           backgroundColor: muted ? '#555' : '#ffd700',
@@ -35,6 +37,13 @@ const VoiceChat: React.FC = () => {
           cursor: 'pointer',
           fontWeight: 'bold',
           fontSize: '12px',
+          outline: 'none',
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 215, 0, 0.7)'
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.boxShadow = 'none'
         }}
       >
         {muted ? 'Unmute' : 'Mute'}
