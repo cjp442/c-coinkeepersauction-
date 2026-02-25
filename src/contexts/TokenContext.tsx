@@ -1,4 +1,6 @@
 import { createContext, useContext, ReactNode, useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
+import { useAuth } from './AuthContext'
 import { Token } from '../types'
 
 interface TokenContextType {
@@ -13,72 +15,66 @@ interface TokenContextType {
 const TokenContext = createContext<TokenContextType | undefined>(undefined)
 
 export function TokenProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth()
   const [tokens, setTokens] = useState<Token | null>(null)
   const [loading, setLoading] = useState(true)
 
+  async function fetchWallet(userId: string) {
+    const { data, error } = await supabase
+      .from('keepers_coins')
+      .select('*')
+      .eq('user_id', userId)
+      .single()
+    if (error || !data) return null
+    return {
+      id: data.id,
+      user_id: data.user_id,
+      balance: data.balance,
+      safe_balance: data.safe_balance,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+    } as Token
+  }
+
   useEffect(() => {
-    const storedTokens = localStorage.getItem('tokens')
-    if (storedTokens) {
-      setTokens(JSON.parse(storedTokens))
-    } else {
-      const mockTokens: Token = {
-        id: '1',
-        user_id: '1',
-        balance: 0,
-        safe_balance: 0,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      }
-      setTokens(mockTokens)
-      localStorage.setItem('tokens', JSON.stringify(mockTokens))
+    if (!user) {
+      setTokens(null)
+      setLoading(false)
+      return
     }
-    setLoading(false)
-  }, [])
+    setLoading(true)
+    fetchWallet(user.id).then(wallet => {
+      setTokens(wallet)
+      setLoading(false)
+    })
+  }, [user?.id])
 
   const addTokens = async (amount: number, _description: string) => {
-    if (!tokens) return
-    const updated = {
-      ...tokens,
-      balance: tokens.balance + amount,
-      updated_at: new Date().toISOString(),
-    }
+    if (!user) return
+    await supabase.rpc('add_keepers_coins', { p_user_id: user.id, p_amount: amount })
+    const updated = await fetchWallet(user.id)
     setTokens(updated)
-    localStorage.setItem('tokens', JSON.stringify(updated))
   }
 
   const deductTokens = async (amount: number, _description: string) => {
-    if (!tokens || tokens.balance < amount) return
-    const updated = {
-      ...tokens,
-      balance: tokens.balance - amount,
-      updated_at: new Date().toISOString(),
-    }
+    if (!user) return
+    await supabase.rpc('deduct_keepers_coins', { p_user_id: user.id, p_amount: amount })
+    const updated = await fetchWallet(user.id)
     setTokens(updated)
-    localStorage.setItem('tokens', JSON.stringify(updated))
   }
 
   const moveToSafe = async (amount: number) => {
-    if (!tokens || tokens.balance < amount) return
-    const updated = {
-      ...tokens,
-      balance: tokens.balance - amount,
-      safe_balance: tokens.safe_balance + amount,
-      updated_at: new Date().toISOString(),
-    }
+    if (!user) return
+    await supabase.rpc('move_to_safe', { p_user_id: user.id, p_amount: amount })
+    const updated = await fetchWallet(user.id)
     setTokens(updated)
-    localStorage.setItem('tokens', JSON.stringify(updated))
   }
 
   const moveFromSafe = async (amount: number) => {
-    if (!tokens || tokens.safe_balance < amount) return
-    const updated = {
-      ...tokens,
-      balance: tokens.balance + amount,
-      safe_balance: tokens.safe_balance - amount,
-      updated_at: new Date().toISOString(),
-    }
+    if (!user) return
+    await supabase.rpc('move_from_safe', { p_user_id: user.id, p_amount: amount })
+    const updated = await fetchWallet(user.id)
     setTokens(updated)
-    localStorage.setItem('tokens', JSON.stringify(updated))
   }
 
   return (

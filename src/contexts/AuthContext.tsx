@@ -1,4 +1,5 @@
 import { createContext, useContext, ReactNode, useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 import { User } from '../types'
 
 interface AuthContextType {
@@ -15,54 +16,60 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    // Initialize user from localStorage or API
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
-    }
-    setLoading(false)
-  }, [])
-
-  const login = async (email: string, _password: string) => {
-    try {
-      // API call would go here
-      const mockUser: User = {
-        id: '1',
-        email,
-        username: email.split('@')[0],
-        role: 'user',
-        created_at: new Date().toISOString(),
-      }
-      setUser(mockUser)
-      localStorage.setItem('user', JSON.stringify(mockUser))
-    } catch (error) {
-      console.error('Login error:', error)
-      throw error
-    }
+  async function fetchProfile(userId: string): Promise<User | null> {
+    const { data, error } = await supabase
+      .from('users')
+      .select('id, email, username, role, age_verified')
+      .eq('id', userId)
+      .single()
+    if (error || !data) return null
+    return data as User
   }
 
-  const signup = async (email: string, _password: string, username: string, role: string) => {
-    try {
-      // API call would go here
-      const mockUser: User = {
-        id: Math.random().toString(),
+  useEffect(() => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) {
+        const profile = await fetchProfile(session.user.id)
+        setUser(profile)
+      }
+      setLoading(false)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const profile = await fetchProfile(session.user.id)
+        setUser(profile)
+      } else {
+        setUser(null)
+      }
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  const login = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) throw error
+  }
+
+  const signup = async (email: string, password: string, username: string, role: string) => {
+    const { data, error } = await supabase.auth.signUp({ email, password })
+    if (error) throw error
+    if (data.user) {
+      const { error: insertError } = await supabase.from('users').insert({
+        id: data.user.id,
         email,
         username,
-        role: (role as any) || 'user',
-        created_at: new Date().toISOString(),
-      }
-      setUser(mockUser)
-      localStorage.setItem('user', JSON.stringify(mockUser))
-    } catch (error) {
-      console.error('Signup error:', error)
-      throw error
+        role: role || 'user',
+        age_verified: false,
+      })
+      if (insertError) throw insertError
     }
   }
 
   const logout = async () => {
+    await supabase.auth.signOut()
     setUser(null)
-    localStorage.removeItem('user')
   }
 
   return (
