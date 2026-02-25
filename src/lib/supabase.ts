@@ -1,40 +1,26 @@
 // src/lib/supabase.ts
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js'
 
-// Initialize Supabase client
-const supabaseUrl = 'https://your-supabase-url.supabase.co';
-const supabaseAnonKey = 'your-anon-key';
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL ?? 'https://your-project.supabase.co'
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? 'your-anon-key'
 
-// Example of a real-time subscription
-action setupRealTimeSubscription() {
-    const subscription = supabase
-        .from('your-table-name')
-        .on('INSERT', payload => {
-            console.log('New entry added:', payload);
-        })
-        .subscribe();
-    return subscription;
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+export function setupRealTimeSubscription(table: string, onInsert: (payload: any) => void) {
+  const subscription = supabase
+    .channel(`realtime:${table}`)
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table }, onInsert)
+    .subscribe()
+  return subscription
 }
 
-// Transaction handling example
-async function handleTransaction() {
-    const { data, error } = await supabase
-        .from('your-table-name')
-        .upsert([{ id: 1, name: 'New Name' }]);
-    if (error) {
-        console.error('Transaction error:', error);
-        return;
-    }
-    console.log('Transaction success:', data);
+export async function handleTransaction(table: string, record: object) {
+  const { data, error } = await supabase.from(table).upsert([record])
+  if (error) { console.error('Transaction error:', error); return null }
+  return data
 }
 
-// Error handling helper function
-function handleError(error) {
-    if (error) {
-        console.error('Error:', error.message);
-    }
+export function handleError(error: any) {
+  if (error) console.error('Supabase error:', error.message)
 }
-
-export { supabase, setupRealTimeSubscription, handleTransaction, handleError };
