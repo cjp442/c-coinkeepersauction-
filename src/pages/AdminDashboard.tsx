@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import AdminDashboardPanel from '../components/AdminPanel/AdminDashboard'
 import MemberManagement from '../components/AdminPanel/MemberManagement'
 import FinancialDashboard from '../components/AdminPanel/FinancialDashboard'
@@ -72,7 +72,7 @@ function SiteSettingsTab() {
 
 export default function AdminDashboard() {
   const { user } = useAuth()
-  const navigate = useNavigate()
+  const history = useHistory()
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard')
 
   if (!user || user.role !== 'admin') {
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
         <Shield className="mx-auto mb-4 text-red-500" size={48} />
         <h1 className="text-2xl font-bold mb-2">Access Denied</h1>
         <p className="text-slate-400 mb-6">You must be an admin to view this page.</p>
-        <button onClick={() => navigate('/')} className="bg-amber-600 hover:bg-amber-700 px-6 py-2 rounded">Go Home</button>
+        <button onClick={() => history.push('/')} className="bg-amber-600 hover:bg-amber-700 px-6 py-2 rounded">Go Home</button>
       </div>
     )
   }

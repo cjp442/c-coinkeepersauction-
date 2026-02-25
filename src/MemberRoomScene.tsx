@@ -21,7 +21,7 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial
           color={0x2a1810}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.8}
           emissive={0x1a0f0a}
         />
@@ -31,7 +31,7 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
         <boxGeometry args={[20, 4, 0.5]} />
         <meshStandardMaterial
           color={0x1a0f0a}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.9}
         />
       </mesh>
@@ -40,7 +40,7 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
         <boxGeometry args={[0.5, 4, 20]} />
         <meshStandardMaterial
           color={0x1a0f0a}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.9}
         />
       </mesh>
@@ -49,7 +49,7 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
         <boxGeometry args={[0.5, 4, 20]} />
         <meshStandardMaterial
           color={0x1a0f0a}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.9}
         />
       </mesh>
@@ -58,7 +58,7 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
         <planeGeometry args={[20, 20]} />
         <meshStandardMaterial
           color={0x0a0605}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.9}
           emissive={0x1a1a1a}
         />
@@ -82,18 +82,18 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
                 color={selectedItem === `lounge${i}` ? 0xffd700 : 0x8b6914}
                 emissive={selectedItem === `lounge${i}` ? 0xffd700 : 0x3d3d1f}
                 emissiveIntensity={selectedItem === `lounge${i}` ? 0.6 : 0.1}
-                metallic={0.4}
+                metalness={0.4}
                 roughness={0.5}
               />
             </mesh>
 
             <mesh position={[-0.7, 0.3, 0]} castShadow>
               <boxGeometry args={[0.2, 0.8, 1]} />
-              <meshStandardMaterial color={0x8b6914} metallic={0.4} roughness={0.5} />
+              <meshStandardMaterial color={0x8b6914} metalness={0.4} roughness={0.5} />
             </mesh>
             <mesh position={[0.7, 0.3, 0]} castShadow>
               <boxGeometry args={[0.2, 0.8, 1]} />
-              <meshStandardMaterial color={0x8b6914} metallic={0.4} roughness={0.5} />
+              <meshStandardMaterial color={0x8b6914} metalness={0.4} roughness={0.5} />
             </mesh>
 
             <Html position={[0, 1.2, 0]} scale={0.5}>
@@ -126,7 +126,7 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
               color={selectedItem === item.id ? 0xffd700 : 0xcd853f}
               emissive={selectedItem === item.id ? 0xffd700 : 0x8b6914}
               emissiveIntensity={selectedItem === item.id ? 0.5 : 0.2}
-              metallic={0.6}
+              metalness={0.6}
               roughness={0.4}
             />
           </mesh>
@@ -154,7 +154,7 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
           color={0x4a3c28}
           emissive={0x2a2418}
           emissiveIntensity={0.3}
-          metallic={0.5}
+          metalness={0.5}
           roughness={0.5}
         />
       </mesh>
@@ -165,7 +165,7 @@ const MemberRoomScene: React.FC<MemberRoomSceneProps> = ({ onBack }) => {
           color={0xcd853f}
           emissive={0x8b6914}
           emissiveIntensity={0.2}
-          metallic={0.8}
+          metalness={0.8}
           roughness={0.3}
         />
       </mesh>

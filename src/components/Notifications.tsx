@@ -1,32 +1,54 @@
-import React from 'react';
-import { Toast, ToastContainer } from 'react-bootstrap';
+import { useState, useEffect } from 'react'
+import { X } from 'lucide-react'
 
-const Notifications = () => {
-    const [notifications, setNotifications] = React.useState([]);
+interface Notification {
+  id: number
+  type: 'info' | 'success' | 'error' | 'warning'
+  message: string
+}
 
-    const addNotification = (type, message) => {
-        const newNotification = { type, message, id: Date.now() };
-        setNotifications((prev) => [...prev, newNotification]);
-        setTimeout(() => {
-            setNotifications((prev) => prev.filter(n => n.id !== newNotification.id));
-        }, 5000);
-    };
+let notificationId = 0
+const listeners: Array<(n: Notification) => void> = []
 
-    return (
-        <ToastContainer position="top-end">
-            {notifications.map((notification) => (
-                <Toast key={notification.id} bg={notification.type}>
-                    <Toast.Body>{notification.message}</Toast.Body>
-                </Toast>
-            ))}
-        </ToastContainer>
-    );
-};
+export function showNotification(type: Notification['type'], message: string) {
+  const n: Notification = { id: ++notificationId, type, message }
+  listeners.forEach(l => l(n))
+}
 
-export default Notifications;
+export default function Notifications() {
+  const [notifications, setNotifications] = useState<Notification[]>([])
 
-export const notifyPurchaseSuccess = (message) => addNotification('success', message);
-export const notifyPlayerJoined = (message) => addNotification('info', message);
-export const notifyStreamStarted = (message) => addNotification('success', message);
-export const notifyError = (message) => addNotification('danger', message);
-export const notifyAdminAction = (message) => addNotification('warning', message);
+  useEffect(() => {
+    const handler = (n: Notification) => {
+      setNotifications(prev => [...prev, n])
+      setTimeout(() => {
+        setNotifications(prev => prev.filter(x => x.id !== n.id))
+      }, 4000)
+    }
+    listeners.push(handler)
+    return () => {
+      const idx = listeners.indexOf(handler)
+      if (idx > -1) listeners.splice(idx, 1)
+    }
+  }, [])
+
+  const colorMap: Record<Notification['type'], string> = {
+    info: 'bg-blue-600',
+    success: 'bg-green-600',
+    error: 'bg-red-600',
+    warning: 'bg-amber-600',
+  }
+
+  return (
+    <div className="fixed top-4 right-4 z-[200] space-y-2 max-w-sm">
+      {notifications.map(n => (
+        <div key={n.id} className={`${colorMap[n.type]} text-white px-4 py-3 rounded-lg shadow-lg flex items-center justify-between gap-3`}>
+          <span className="text-sm">{n.message}</span>
+          <button onClick={() => setNotifications(prev => prev.filter(x => x.id !== n.id))}>
+            <X size={16} />
+          </button>
+        </div>
+      ))}
+    </div>
+  )
+}
