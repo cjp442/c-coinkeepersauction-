@@ -3,11 +3,13 @@ import { useAuth } from '../contexts/AuthContext'
 import { useTokens } from '../contexts/TokenContext'
 import { Menu } from 'lucide-react'
 import { useState } from 'react'
+import TokenPurchaseModal from './TokenPurchaseModal'
 
 export default function Header() {
   const { user, logout } = useAuth()
   const { tokens } = useTokens()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [showTokenModal, setShowTokenModal] = useState(false)
 
   return (
     <header className="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
@@ -37,9 +39,12 @@ export default function Header() {
 
         <div className="flex items-center gap-4">
           {tokens && (
-            <div className="text-sm bg-amber-600 px-3 py-1 rounded">
+            <button
+              onClick={() => setShowTokenModal(true)}
+              className="text-sm bg-amber-600 hover:bg-amber-700 px-3 py-1 rounded transition cursor-pointer"
+            >
               {tokens.balance} Tokens
-            </div>
+            </button>
           )}
           {user ? (
             <div className="flex items-center gap-2">
@@ -88,6 +93,10 @@ export default function Header() {
             </Link>
           )}
         </nav>
+      )}
+
+      {showTokenModal && (
+        <TokenPurchaseModal onClose={() => setShowTokenModal(false)} />
       )}
     </header>
   )

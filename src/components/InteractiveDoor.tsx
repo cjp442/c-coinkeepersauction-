@@ -36,7 +36,7 @@ const InteractiveDoor: React.FC<InteractiveDoorProps> = ({ position, label, dest
         <boxGeometry args={[1, 2.5, 0.1]} />
         <meshStandardMaterial
           color={isHovered ? '#ff6b35' : '#8b4513'}
-          metallic={0.3}
+          metalness={0.3}
           roughness={0.7}
           emissive={isHovered ? '#ff6b35' : '#000000'}
           emissiveIntensity={isHovered ? 0.5 : 0}

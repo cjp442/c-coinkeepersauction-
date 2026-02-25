@@ -15,7 +15,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
         <planeGeometry args={[25, 25]} />
         <meshStandardMaterial
           color={0x1a0f0a}
-          metallic={0.15}
+          metalness={0.15}
           roughness={0.85}
           emissive={0x0a0605}
         />
@@ -27,7 +27,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
           color={0xff6b35}
           emissive={0xff6b35}
           emissiveIntensity={0.3}
-          metallic={0.6}
+          metalness={0.6}
           roughness={0.4}
         />
       </mesh>
@@ -36,7 +36,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
         <boxGeometry args={[10, 4, 0.5]} />
         <meshStandardMaterial
           color={0x0a0605}
-          metallic={0.2}
+          metalness={0.2}
           roughness={0.8}
           emissive={0x2d1810}
         />
@@ -48,7 +48,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
           color={0x1a1a1a}
           emissive={0x00ffff}
           emissiveIntensity={0.4}
-          metallic={0.8}
+          metalness={0.8}
           roughness={0.2}
         />
       </mesh>
@@ -75,7 +75,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
                 color={selectedChair === i ? 0xffd700 : 0x8b4513}
                 emissive={selectedChair === i ? 0xffd700 : 0x2d1810}
                 emissiveIntensity={selectedChair === i ? 0.5 : 0.1}
-                metallic={0.3}
+                metalness={0.3}
                 roughness={0.6}
               />
             </mesh>
@@ -84,7 +84,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
               <boxGeometry args={[0.6, 0.8, 0.1]} />
               <meshStandardMaterial
                 color={selectedChair === i ? 0xffd700 : 0x8b4513}
-                metallic={0.3}
+                metalness={0.3}
                 roughness={0.6}
               />
             </mesh>
@@ -111,7 +111,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
         <boxGeometry args={[25, 4, 0.5]} />
         <meshStandardMaterial
           color={0x1a0a05}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.9}
         />
       </mesh>
@@ -120,7 +120,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
         <boxGeometry args={[0.5, 4, 25]} />
         <meshStandardMaterial
           color={0x1a0a05}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.9}
         />
       </mesh>
@@ -129,7 +129,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
         <boxGeometry args={[0.5, 4, 25]} />
         <meshStandardMaterial
           color={0x1a0a05}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.9}
         />
       </mesh>
@@ -138,7 +138,7 @@ const HostRoomScene: React.FC<HostRoomSceneProps> = ({ onBack }) => {
         <planeGeometry args={[25, 25]} />
         <meshStandardMaterial
           color={0x0a0605}
-          metallic={0.1}
+          metalness={0.1}
           roughness={0.9}
           emissive={0x1a1a1a}
         />
