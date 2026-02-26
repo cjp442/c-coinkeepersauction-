@@ -1,8 +1,8 @@
 {\n  "build": {\n    "env": {\n      "API_URL": "https://api.example.com",\n      "ANOTHER_SECRET": "secret_value"\n    }\n  },\n  "production": {\n    "env": {\n      "NODE_ENV": "production"\n    }\n  }\n}{
      "build": {
       "env": {
-       "API_URL": "https://api.example.com",
-       "ANOTHER_SECRET": "secret_value",
+       "API_URL": "https://sypesdbbubtnbemzgqsn.supabase.com",
+       "ANOTHER_SECRET": sb_publishable_ylrQn3IdjNTnXuyxyfwg8A_VOlH20H4",
        "NODE_ENV": "production"
       }
      }
