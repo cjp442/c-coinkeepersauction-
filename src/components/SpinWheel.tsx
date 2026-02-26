@@ -10,10 +10,39 @@ const SpinWheel: React.FC = () => {
     if (spinning) return
     setSpinning(true)
     setResult(null)
-    setTimeout(() => {
-      const prize = SEGMENTS[Math.floor(Math.random() * SEGMENTS.length)]
-      setResult(prize)
-      setSpinning(false)
+    setTimeout(async () => {
+      try {
+        const response = await fetch('/api/spin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ segments: SEGMENTS }),
+        })
+
+        if (!response.ok) {
+          throw new Error('Spin request failed')
+        }
+
+        const data = await response.json()
+
+        let prize: string | null = null
+        if (typeof data?.prize === 'string') {
+          prize = data.prize
+        } else if (
+          typeof data?.index === 'number' &&
+          data.index >= 0 &&
+          data.index < SEGMENTS.length
+        ) {
+          prize = SEGMENTS[data.index]
+        }
+
+        setResult(prize ?? 'Try Again')
+      } catch (error) {
+        setResult('Try Again')
+      } finally {
+        setSpinning(false)
+      }
     }, 1500)
   }
 
