@@ -15,7 +15,7 @@ Add these secrets to GitHub → Settings → Secrets and variables → Actions:
 - Add to GitHub Secrets as `VERCEL_ORG_ID`
 
 ### 3. VERCEL_PROJECT_ID
-- In Vercel dashboard, select keepersauction-com project
+- In Vercel dashboard, select keepersauction.com project
 - Go to Settings → General
 - Copy Project ID
 - Add to GitHub Secrets as `VERCEL_PROJECT_ID`
@@ -44,6 +44,6 @@ VITE_HOST_PHONE = 606-412-3121
 ## Verification
 
 Check deployment status:
-- GitHub Actions: https://github.com/cjp442/keepersauction-com/actions
+- GitHub Actions: https://github.com/cjp442/keepersauction.com/actions
 - Vercel Dashboard: https://vercel.com/dashboard
 - Live Site: https://keepersauction.com
