@@ -20,4 +20,11 @@
       ]
     }
   ]
+  "build": {
+    "env": {
+      "API_URL": "https://api.example.com",
+      "ANOTHER_SECRET": "secret_value",
+      "NODE_ENV": "production"
+    }
+  }
 }
