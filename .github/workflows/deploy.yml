@@ -1,0 +1,52 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project (Vercel)
+        run: npx vercel@50.22.1 build --prod --token "$VERCEL_TOKEN" --yes
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SITE_NAME: ${{ secrets.VITE_SITE_NAME }}
+          VITE_DOMAIN: ${{ secrets.VITE_DOMAIN }}
+          VITE_HOST_PHONE: ${{ secrets.VITE_HOST_PHONE }}
+          VITE_ENABLE_DONATIONS: ${{ secrets.VITE_ENABLE_DONATIONS }}
+          VITE_ENABLE_AUCTIONS: ${{ secrets.VITE_ENABLE_AUCTIONS }}
+          VITE_ENABLE_3D_ROOMS: ${{ secrets.VITE_ENABLE_3D_ROOMS }}
+          VITE_ENABLE_GAMES: ${{ secrets.VITE_ENABLE_GAMES }}
+
+      - name: Deploy to Vercel (production)
+        run: npx vercel@50.22.1 deploy --prebuilt --prod --token "$VERCEL_TOKEN" --yes
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Verify deployment
+        run: |
+          echo "Deployment to Vercel completed successfully."
+          echo "Visit https://keepersauction.com to verify."
