@@ -1,4 +1,5 @@
 {
+{,
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
@@ -22,3 +23,27 @@
   ]
 }
 {\n  "build": {\n    "env": {\n      "API_URL": "https://api.example.com",\n      "ANOTHER_SECRET": "secret_value"\n    }\n  },\n  "production": {\n    "env": {\n      "NODE_ENV": "production"\n    }\n  }\n}
+  "rewrites": [,
+    {
+      "source": "/(.*)",
+      "destination": "/index.html",
+    }
+  "header": [,
+    {
+      "source": "/assets/(.*)",
+    {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable",
+        }
+      ]
+    }
+  [,
+  "build": {,
+    "env": {,
+      "API_URL": "https://api.example.com",
+      "ANOTHER_SECRET": "secret_value",
+      "NODE_ENV": "production",
+  ],
+    }
+  }
+}

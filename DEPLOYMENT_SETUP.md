@@ -7,7 +7,7 @@
 
 ### Step 2: Import your project from GitHub
 - After logging in, click on the "New Project" button.
-- Select your GitHub repository (`cjp442/keepersauction-com`) to import the project.
+- Select your GitHub repository (`cjp442/keepersauction.com`) to import the project.
 
 ### Step 3: Configure environment variables (if required)
 - During the import process, you may need to set up any required environment variables. This can be done in the settings of your project on Vercel.
