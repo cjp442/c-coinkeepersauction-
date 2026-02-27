@@ -25,17 +25,35 @@ export interface Token {
   updated_at: string
 }
 
+export type AuctionCategory =
+  | 'coins'
+  | 'bullion'
+  | 'collectibles'
+  | 'jewelry'
+  | 'art'
+  | 'other'
+
 export interface Auction {
   id: string
   host_id: string
+  host_name: string
   title: string
   description: string
   image_url?: string
+  category: AuctionCategory
   starting_bid: number
   current_bid: number
+  reserve_price?: number
+  reserve_met: boolean
   highest_bidder_id?: string
-  status: 'pending' | 'active' | 'ended' | 'sold'
+  highest_bidder_name?: string
+  bid_count: number
+  view_count: number
+  status: 'pending' | 'active' | 'ended' | 'sold' | 'cancelled'
+  is_featured: boolean
+  snipe_protection_minutes: number
   created_at: string
+  starts_at: string
   ends_at: string
 }
 
@@ -43,7 +61,40 @@ export interface Bid {
   id: string
   auction_id: string
   bidder_id: string
+  bidder_name: string
   amount: number
+  is_proxy: boolean
+  proxy_max?: number
+  created_at: string
+}
+
+export interface ProxyBid {
+  id: string
+  auction_id: string
+  bidder_id: string
+  bidder_name: string
+  max_amount: number
+  created_at: string
+}
+
+export interface AuctionItem {
+  id: string
+  auction_id: string
+  name: string
+  description: string
+  condition: string
+  quantity: number
+  image_url?: string
+}
+
+export interface AuctionHistoryEntry {
+  id: string
+  auction_id: string
+  event_type: 'bid' | 'outbid' | 'reserve_met' | 'started' | 'ended' | 'cancelled' | 'extended'
+  actor_id?: string
+  actor_name?: string
+  amount?: number
+  description: string
   created_at: string
 }
 
