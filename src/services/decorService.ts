@@ -1,26 +1,26 @@
 // src/services/decorService.ts
 
-export const getAllDecor = async () => {
-    // Fetch all decor items
-    // TODO: Implement API call to retrieve decor items
-};
+export function getAllDecor(): Promise<unknown[]> {
+    // TODO: Replace with: const { data } = await supabase.from('decor_items').select('*')
+    return Promise.resolve([]);
+}
 
-export const getUserInventory = async (_userId: string) => {
-    // Retrieve user's inventory of decor items
-    // TODO: Implement API call to retrieve user's inventory
-};
+export function getUserInventory(_userId: string): Promise<unknown[]> {
+    // TODO: Replace with: const { data } = await supabase.from('user_inventory').select('*').eq('user_id', _userId)
+    return Promise.resolve([]);
+}
 
-export const purchaseDecor = async (_itemId: string, _userId: string) => {
-    // Purchase a decor item
-    // TODO: Implement API call to handle purchasing of decor
-};
+export function purchaseDecor(_itemId: string, _userId: string): Promise<void> {
+    // TODO: Replace with supabase insert into purchases
+    return Promise.resolve();
+}
 
-export const placeDecorInRoom = async (_itemId: string, _roomId: string) => {
-    // Place purchased decor item in the specified room
-    // TODO: Implement API call to place decor in room
-};
+export function placeDecorInRoom(_itemId: string, _roomId: string): Promise<void> {
+    // TODO: Replace with supabase update room layout
+    return Promise.resolve();
+}
 
-export const removeDecor = async (_itemId: string, _roomId: string) => {
-    // Remove decor item from the specified room
-    // TODO: Implement API call to remove decor from room
-};
+export function removeDecor(_itemId: string, _roomId: string): Promise<void> {
+    // TODO: Replace with supabase remove from room layout
+    return Promise.resolve();
+}

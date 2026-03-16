@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import AdminDashboardPanel from '../components/AdminPanel/AdminDashboard'
 import MemberManagement from '../components/AdminPanel/MemberManagement'
 import FinancialDashboard from '../components/AdminPanel/FinancialDashboard'
+import SystemLogs from '../components/AdminPanel/SystemLogs'
 import { LayoutDashboard, Users, DollarSign, FileText, Shield } from 'lucide-react'
 
 type AdminTab = 'dashboard' | 'members' | 'financial' | 'logs'
@@ -55,12 +56,7 @@ export default function AdminDashboard() {
         {activeTab === 'dashboard' && <AdminDashboardPanel />}
         {activeTab === 'members' && <MemberManagement />}
         {activeTab === 'financial' && <FinancialDashboard />}
-        {activeTab === 'logs' && (
-          <div>
-            <h2 className="text-2xl font-bold mb-6 text-amber-400">Audit Logs</h2>
-            <p className="text-slate-400">Audit log viewer coming soon. All admin actions are being recorded in the database.</p>
-          </div>
-        )}
+        {activeTab === 'logs' && <SystemLogs />}
       </div>
     </div>
   )

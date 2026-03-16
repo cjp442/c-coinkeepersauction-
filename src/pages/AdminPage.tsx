@@ -1,13 +1,14 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
-const AdminPanel: React.FC = () => {
-    const history = useHistory();
-    const isOwner = true; // Replace with actual owner check logic
+const AdminPage = () => {
+    const navigate = useNavigate()
+    const { user } = useAuth()
+    const isOwner = user?.role === 'admin'
 
     if (!isOwner) {
-        history.push('/unauthorized'); // Redirect to unauthorized page if not an owner
-        return null;
+        navigate('/unauthorized')
+        return null
     }
 
     return (
@@ -23,7 +24,7 @@ const AdminPanel: React.FC = () => {
                 {/* Content related to the selected tab goes here */}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default AdminPanel;
+export default AdminPage

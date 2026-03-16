@@ -7,6 +7,9 @@ import HomePage from './pages/HomePage'
 import AuctionsPage from './pages/AuctionsPage'
 import AdminDashboard from './pages/AdminDashboard'
 import SettingsPage from './pages/SettingsPage'
+import GamesPage from './pages/GamesPage'
+import ProfilePage from './pages/ProfilePage'
+import NotFoundPage from './pages/NotFoundPage'
 import TokenShop from './components/TokenShop'
 
 function App() {
@@ -22,9 +25,12 @@ function App() {
             <Route element={<AppLayout />}>
               <Route index element={<HomePage />} />
               <Route path="/auctions" element={<AuctionsPage />} />
+              <Route path="/games" element={<GamesPage />} />
               <Route path="/tokens" element={<TokenShop />} />
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </TokenProvider>

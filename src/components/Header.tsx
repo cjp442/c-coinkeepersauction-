@@ -20,6 +20,9 @@ export default function Header() {
           <Link to="/auctions" className="hover:text-amber-500 transition">
             Auctions
           </Link>
+          <Link to="/games" className="hover:text-amber-500 transition">
+            🎰 Games
+          </Link>
           <Link to="/game" className="hover:text-amber-500 transition">
             🎮 Game Lobby
           </Link>
@@ -46,7 +49,9 @@ export default function Header() {
           )}
           {user ? (
             <div className="flex items-center gap-2">
-              <span className="text-sm">{user.username}</span>
+              <Link to="/profile" className="text-sm hover:text-amber-500 transition">
+                {user.username}
+              </Link>
               <button
                 onClick={() => logout()}
                 className="px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded transition"
@@ -76,6 +81,9 @@ export default function Header() {
         <nav className="md:hidden bg-slate-700 p-4 space-y-2">
           <Link to="/auctions" className="block hover:text-amber-500">
             Auctions
+          </Link>
+          <Link to="/games" className="block hover:text-amber-500">
+            🎰 Games
           </Link>
           <Link to="/game" className="block hover:text-amber-500">
             🎮 Game Lobby
