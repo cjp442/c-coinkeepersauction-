@@ -1,38 +1,15 @@
-// src/services/tokenService.ts
+import { KeepersCoin, CoinTransaction, TokenPurchaseRequest } from '../types/token'
 
-/**
- * Get coin balance of a user
- */
-function getCoinBalance(userId) {
-    // Implement logic to retrieve coin balance for the user
+export const tokenService = {
+  async getBalance(_userId: string): Promise<KeepersCoin | null> {
+    return null
+  },
+  async purchaseTokens(_request: TokenPurchaseRequest): Promise<void> {},
+  async spendTokens(_userId: string, _amount: number, _description: string, _referenceId?: string): Promise<void> {},
+  async transferTokens(_fromUserId: string, _toUserId: string, _amount: number, _description: string): Promise<void> {},
+  async getTransactionHistory(_userId: string, _limit = 50): Promise<CoinTransaction[]> {
+    return []
+  },
+  async moveToSafe(_userId: string, _amount: number): Promise<void> {},
+  async moveFromSafe(_userId: string, _amount: number): Promise<void> {},
 }
-
-/**
- * Purchase coins using Stripe
- */
-function purchaseCoins(userId, amount) {
-    // Implement logic to purchase coins with Stripe payment
-}
-
-/**
- * Get transaction history for a user
- */
-function getTransactionHistory(userId) {
-    // Implement logic to retrieve transaction history
-}
-
-/**
- * Get user ledger
- */
-function getUserLedger(userId) {
-    // Implement logic to retrieve user ledger
-}
-
-/**
- * Calculate tax based on transaction amount
- */
-function calculateTax(amount) {
-    // Implement logic to calculate tax
-}
-
-module.exports = { getCoinBalance, purchaseCoins, getTransactionHistory, getUserLedger, calculateTax };

@@ -1,32 +1,25 @@
-/* Global Styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom global styles for The Keeper's Saloon */
 body {
-    background-color: #121212; /* Dark background */
-    color: #E0E0E0; /* Light text color */
-    font-family: Arial, sans-serif; /* Default font */
+  background-color: #0f172a; /* slate-900 */
+  color: #f8fafc;
+  font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
-a {
-    color: #BB86FC; /* Link color */
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: #FFFFFF; /* Headings color */
-}
-
-/* Scrollbar customization */
+/* Scrollbar */
 ::-webkit-scrollbar {
-    width: 12px; /* Scrollbar width */
+  width: 8px;
 }
-
 ::-webkit-scrollbar-track {
-    background: #1F1F1F; /* Track color */
+  background: #1e293b;
 }
-
 ::-webkit-scrollbar-thumb {
-    background-color: #BB86FC; /* Scroll thumb color */
-    border-radius: 10px; /* Round edges */
+  background-color: #78350f;
+  border-radius: 6px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #9B5FBF; /* Hover state */
+  background-color: #92400e;
 }

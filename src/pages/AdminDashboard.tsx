@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useState, ElementType } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import AdminDashboardPanel from '../components/AdminPanel/AdminDashboard'
 import MemberManagement from '../components/AdminPanel/MemberManagement'
 import FinancialDashboard from '../components/AdminPanel/FinancialDashboard'
-import { LayoutDashboard, Users, DollarSign, FileText, Shield } from 'lucide-react'
+import HostManagement from '../components/AdminPanel/HostManagement'
+import BanManagement from '../components/AdminPanel/BanManagement'
+import SystemLogs from '../components/AdminPanel/SystemLogs'
+import { LayoutDashboard, Users, DollarSign, FileText, Radio, Ban, Shield } from 'lucide-react'
 
-type AdminTab = 'dashboard' | 'members' | 'financial' | 'logs'
+type AdminTab = 'dashboard' | 'members' | 'financial' | 'hosts' | 'bans' | 'system'
 
 export default function AdminDashboard() {
   const { user } = useAuth()
@@ -24,11 +27,13 @@ export default function AdminDashboard() {
     )
   }
 
-  const tabs: { key: AdminTab; label: string; icon: React.ElementType }[] = [
+  const tabs: { key: AdminTab; label: string; icon: ElementType }[] = [
     { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { key: 'members', label: 'Members', icon: Users },
     { key: 'financial', label: 'Financial', icon: DollarSign },
-    { key: 'logs', label: 'Audit Logs', icon: FileText },
+    { key: 'hosts', label: 'Hosts', icon: Radio },
+    { key: 'bans', label: 'Bans', icon: Ban },
+    { key: 'system', label: 'System Logs', icon: FileText },
   ]
 
   return (
@@ -55,12 +60,9 @@ export default function AdminDashboard() {
         {activeTab === 'dashboard' && <AdminDashboardPanel />}
         {activeTab === 'members' && <MemberManagement />}
         {activeTab === 'financial' && <FinancialDashboard />}
-        {activeTab === 'logs' && (
-          <div>
-            <h2 className="text-2xl font-bold mb-6 text-amber-400">Audit Logs</h2>
-            <p className="text-slate-400">Audit log viewer coming soon. All admin actions are being recorded in the database.</p>
-          </div>
-        )}
+        {activeTab === 'hosts' && <HostManagement />}
+        {activeTab === 'bans' && <BanManagement />}
+        {activeTab === 'system' && <SystemLogs />}
       </div>
     </div>
   )

@@ -1,40 +1,25 @@
-// src/services/adminService.ts
+import { AdminStats, AdminUser, AdminTransaction, AdminLog } from '../types/admin'
 
-class AdminService {
-    // Function to get all members
-    static getAllMembers() {
-        // Implementation here
+export const adminService = {
+  async getStats(): Promise<AdminStats> {
+    return {
+      totalUsers: 0, activeUsers: 0, totalHosts: 0,
+      totalRevenue: 0, totalTokensInCirculation: 0,
+      activeAuctions: 0, activeStreams: 0,
     }
-
-    // Function to get all transactions
-    static getAllTransactions() {
-        // Implementation here
-    }
-
-    // Function to ban a user
-    static banUser(userId: string) {
-        // Implementation here
-    }
-
-    // Function to delete a user
-    static deleteUser(userId: string) {
-        // Implementation here
-    }
-
-    // Function to get admin logs
-    static getAdminLogs() {
-        // Implementation here
-    }
-
-    // Function to update settings
-    static updateSettings(newSettings: object) {
-        // Implementation here
-    }
-
-    // Function to export data
-    static exportData() {
-        // Implementation here
-    }
+  },
+  async getUsers(_page = 0, _limit = 50): Promise<AdminUser[]> {
+    return []
+  },
+  async banUser(_userId: string, _reason: string, _adminId: string): Promise<void> {},
+  async unbanUser(_userId: string, _adminId: string): Promise<void> {},
+  async deleteUser(_userId: string, _adminId: string): Promise<void> {},
+  async getTransactions(_page = 0, _limit = 100): Promise<AdminTransaction[]> {
+    return []
+  },
+  async getAdminLogs(_limit = 100): Promise<AdminLog[]> {
+    return []
+  },
+  async setUserRole(_userId: string, _role: string, _adminId: string): Promise<void> {},
+  async broadcastMessage(_message: string, _adminId: string): Promise<void> {},
 }
-
-export default AdminService;

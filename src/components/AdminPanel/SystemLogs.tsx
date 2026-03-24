@@ -1,29 +1,75 @@
-import React from 'react';
-import { Table } from 'antd';
+import { useEffect, useState } from 'react'
+import { adminService } from '../../services/adminService'
+import { AdminLog } from '../../types/admin'
+import { RefreshCw } from 'lucide-react'
 
-const SystemLogs: React.FC = () => {
-    const logs = [
-        { action: 'User Login', user: 'user123', timestamp: '2026-02-23 12:00:00', target: 'user123', details: 'User logged into the system.' },
-        { action: 'Change Password', user: 'admin', timestamp: '2026-02-23 12:20:00', target: 'user123', details: 'User123 changed their password.' },
-        { action: 'Delete User', user: 'admin', timestamp: '2026-02-23 12:30:00', target: 'user456', details: 'User456 was deleted from the system.' },
-        { action: 'Update Profile', user: 'user123', timestamp: '2026-02-23 12:40:00', target: 'user123', details: 'User123 updated their profile information.' },
-        { action: 'Create User', user: 'admin', timestamp: '2026-02-23 12:45:00', target: 'user789', details: 'User789 was created in the system.' }
-    ];
+export default function SystemLogs() {
+  const [logs, setLogs] = useState<AdminLog[]>([])
+  const [loading, setLoading] = useState(true)
 
-    const columns = [
-        { title: 'Action', dataIndex: 'action', key: 'action' },
-        { title: 'User', dataIndex: 'user', key: 'user' },
-        { title: 'Timestamp', dataIndex: 'timestamp', key: 'timestamp' },
-        { title: 'Target User', dataIndex: 'target', key: 'target' },
-        { title: 'Details', dataIndex: 'details', key: 'details' }
-    ];
+  const loadLogs = async () => {
+    setLoading(true)
+    try {
+      const data = await adminService.getAdminLogs(200)
+      setLogs(data)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-    return (
-        <div>
-            <h2>Admin Action Logs</h2>
-            <Table columns={columns} dataSource={logs} rowKey="timestamp" />
+  useEffect(() => { loadLogs() }, [])
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-amber-400">System Logs</h2>
+        <button
+          onClick={loadLogs}
+          className="flex items-center gap-2 px-3 py-1.5 bg-slate-700 hover:bg-slate-600 border border-slate-600 rounded text-sm text-slate-300 transition-colors"
+        >
+          <RefreshCw size={14} />
+          Refresh
+        </button>
+      </div>
+      {loading ? (
+        <div className="animate-pulse space-y-2">
+          {Array.from({ length: 8 }).map((_, i) => (<div key={i} className="bg-slate-800 h-12 rounded" />))}
         </div>
-    );
-};
-
-export default SystemLogs;
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-slate-400 border-b border-slate-700">
+                <th className="pb-3 pr-4">Date / Time</th>
+                <th className="pb-3 pr-4">Admin</th>
+                <th className="pb-3 pr-4">Action</th>
+                <th className="pb-3 pr-4">Target</th>
+                <th className="pb-3">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              {logs.map(l => (
+                <tr key={l.id} className="border-b border-slate-800 hover:bg-slate-800">
+                  <td className="py-2 pr-4 text-slate-400 whitespace-nowrap">
+                    {new Date(l.createdAt).toLocaleString()}
+                  </td>
+                  <td className="py-2 pr-4 font-medium">{l.adminUsername}</td>
+                  <td className="py-2 pr-4">
+                    <span className="font-mono text-xs text-amber-300">{l.action}</span>
+                  </td>
+                  <td className="py-2 pr-4 text-slate-400 text-xs">
+                    {l.targetType && l.targetId ? `${l.targetType}:${l.targetId}` : '—'}
+                  </td>
+                  <td className="py-2 text-slate-400 truncate max-w-xs">{l.details}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {logs.length === 0 && <p className="text-center text-slate-500 py-8">No logs found</p>}
+        </div>
+      )}
+    </div>
+  )
+}

@@ -1,32 +1,17 @@
-import React from 'react';
-import { Toast, ToastContainer } from 'react-bootstrap';
+import { Toaster, toast } from 'sonner'
 
-const Notifications = () => {
-    const [notifications, setNotifications] = React.useState([]);
+export function notifySuccess(msg: string) {
+  toast.success(msg)
+}
 
-    const addNotification = (type, message) => {
-        const newNotification = { type, message, id: Date.now() };
-        setNotifications((prev) => [...prev, newNotification]);
-        setTimeout(() => {
-            setNotifications((prev) => prev.filter(n => n.id !== newNotification.id));
-        }, 5000);
-    };
+export function notifyError(msg: string) {
+  toast.error(msg)
+}
 
-    return (
-        <ToastContainer position="top-end">
-            {notifications.map((notification) => (
-                <Toast key={notification.id} bg={notification.type}>
-                    <Toast.Body>{notification.message}</Toast.Body>
-                </Toast>
-            ))}
-        </ToastContainer>
-    );
-};
+export function notifyInfo(msg: string) {
+  toast.info(msg)
+}
 
-export default Notifications;
-
-export const notifyPurchaseSuccess = (message) => addNotification('success', message);
-export const notifyPlayerJoined = (message) => addNotification('info', message);
-export const notifyStreamStarted = (message) => addNotification('success', message);
-export const notifyError = (message) => addNotification('danger', message);
-export const notifyAdminAction = (message) => addNotification('warning', message);
+export default function Notifications() {
+  return <Toaster position="top-right" theme="dark" richColors />
+}

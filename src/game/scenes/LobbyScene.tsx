@@ -1,40 +1,44 @@
-import React from 'react';
-import { OrbitControls, Text } from '@react-three/drei';
-import LobbyLighting from '../lighting/LobbyLighting';
-import Door from '../objects/Door';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
-import { useState } from 'react';
+import { useState } from 'react'
+import { OrbitControls, Text, Html } from '@react-three/drei'
+import LobbyLighting from '../lighting/LobbyLighting'
 
-const Door = ({ position, label }) => {
-  const [hovered, setHovered] = useState(false);
-  const [clicked, setClicked] = useState(false);
+type Scene = 'lobby' | 'host' | 'member'
 
+interface LobbySceneProps {
+  onNavigate: (scene: Scene) => void
+}
+
+interface DoorProps {
+  position: [number, number, number]
+  label: string
+  color?: string
+  onClick?: () => void
+}
+
+function Door({ position, label, color = '#8B4513', onClick }: DoorProps) {
+  const [hovered, setHovered] = useState(false)
   return (
     <mesh
       position={position}
-      onClick={() => setClicked(!clicked)}
+      onClick={onClick}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
+      castShadow
     >
-      <boxGeometry args={[1, 2, 0.1]} />
-      <meshStandardMaterial color={clicked ? 'orange' : 'brown'} />
+      <boxGeometry args={[1.2, 2.4, 0.1]} />
+      <meshStandardMaterial color={hovered ? '#d97706' : color} />
       {hovered && (
-        <Html position={[0, 1, 0.1]}>
-          <div style={{ color: 'white', background: 'rgba(0,0,0,0.7)', padding: '5px' }}>{label}</div>
+        <Html position={[0, 1.4, 0.1]}>
+          <div style={{ color: 'white', background: 'rgba(0,0,0,0.8)', padding: '4px 8px', borderRadius: 4, fontSize: 13, whiteSpace: 'nowrap' }}>
+            {label}
+          </div>
         </Html>
       )}
     </mesh>
-  );
-};
-
-type Scene = 'lobby' | 'host' | 'member';
-
-interface LobbySceneProps {
-  onNavigate: (scene: Scene) => void;
+  )
 }
 
-const LobbyScene: React.FC<LobbySceneProps> = ({ onNavigate }) => {
+export default function LobbyScene({ onNavigate }: LobbySceneProps) {
   return (
     <>
       <LobbyLighting />
@@ -50,69 +54,37 @@ const LobbyScene: React.FC<LobbySceneProps> = ({ onNavigate }) => {
       {/* Floor */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial
-          color="#6B3A1F"
-          roughness={0.7}
-          metalness={0.1}
-          emissive="#2a1008"
-          emissiveIntensity={0.25}
-        />
+        <meshStandardMaterial color="#6B3A1F" roughness={0.7} metalness={0.1} emissive="#2a1008" emissiveIntensity={0.25} />
       </mesh>
 
       {/* Back wall */}
       <mesh position={[0, 4, -10]} receiveShadow>
         <planeGeometry args={[20, 10]} />
-        <meshStandardMaterial
-          color="#8B7355"
-          roughness={0.9}
-          emissive="#3a2a10"
-          emissiveIntensity={0.2}
-        />
+        <meshStandardMaterial color="#8B7355" roughness={0.9} emissive="#3a2a10" emissiveIntensity={0.2} />
       </mesh>
 
       {/* Left wall */}
       <mesh rotation={[0, Math.PI / 2, 0]} position={[-10, 4, 0]} receiveShadow>
         <planeGeometry args={[20, 10]} />
-        <meshStandardMaterial
-          color="#7A6344"
-          roughness={0.9}
-          emissive="#2a1a08"
-          emissiveIntensity={0.15}
-        />
+        <meshStandardMaterial color="#7A6344" roughness={0.9} emissive="#2a1a08" emissiveIntensity={0.15} />
       </mesh>
 
       {/* Right wall */}
       <mesh rotation={[0, -Math.PI / 2, 0]} position={[10, 4, 0]} receiveShadow>
         <planeGeometry args={[20, 10]} />
-        <meshStandardMaterial
-          color="#7A6344"
-          roughness={0.9}
-          emissive="#2a1a08"
-          emissiveIntensity={0.15}
-        />
+        <meshStandardMaterial color="#7A6344" roughness={0.9} emissive="#2a1a08" emissiveIntensity={0.15} />
       </mesh>
 
       {/* Ceiling */}
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 8, 0]}>
         <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial
-          color="#5C4A2A"
-          roughness={1}
-          emissive="#1a0e04"
-          emissiveIntensity={0.1}
-        />
+        <meshStandardMaterial color="#5C4A2A" roughness={1} emissive="#1a0e04" emissiveIntensity={0.1} />
       </mesh>
 
       {/* Bar counter */}
       <mesh position={[-6, 0.6, 2]} castShadow receiveShadow>
         <boxGeometry args={[5, 1.2, 1.5]} />
-        <meshStandardMaterial
-          color="#4A2C0A"
-          roughness={0.6}
-          metalness={0.15}
-          emissive="#1a0e04"
-          emissiveIntensity={0.2}
-        />
+        <meshStandardMaterial color="#4A2C0A" roughness={0.6} metalness={0.15} emissive="#1a0e04" emissiveIntensity={0.2} />
       </mesh>
 
       {/* Lobby sign */}
@@ -131,7 +103,7 @@ const LobbyScene: React.FC<LobbySceneProps> = ({ onNavigate }) => {
       {/* Host Door */}
       <Door
         position={[-3.5, 1.35, -9.9]}
-        label="Host"
+        label="Host Stage"
         color="#8B4513"
         onClick={() => onNavigate('host')}
       />
@@ -139,19 +111,10 @@ const LobbyScene: React.FC<LobbySceneProps> = ({ onNavigate }) => {
       {/* Members Door */}
       <Door
         position={[3.5, 1.35, -9.9]}
-        label="Members"
+        label="Member Rooms"
         color="#2E5E2E"
         onClick={() => onNavigate('member')}
       />
     </>
-    <Canvas>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 5, 5]} intensity={1} />
-      <Door position={[-2, 0, 0]} label="Door 1" />
-      <Door position={[2, 0, 0]} label="Door 2" />
-      <OrbitControls />
-    </Canvas>
-  );
-};
-
-export default LobbyScene;
+  )
+}
