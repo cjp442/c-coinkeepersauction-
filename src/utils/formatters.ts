@@ -32,3 +32,5 @@ function formatNumber(number) {
 // console.log(formatCurrency(1234567.89, '$')); // $1234567.89
 // console.log(formatDate(new Date())); // Output: current date in YYYY-MM-DD
 // console.log(formatNumber(1234567)); // Output: 1,234,567
+
+export {};
