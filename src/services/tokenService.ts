@@ -36,3 +36,4 @@ function calculateTax(amount) {
 }
 
 module.exports = { getCoinBalance, purchaseCoins, getTransactionHistory, getUserLedger, calculateTax };
+export {};

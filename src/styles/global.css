@@ -13,14 +13,14 @@ body {
   color: var(--text-color);
 }
 
-// Responsive utilities
+/* Responsive utilities */
 @media (max-width: 768px) {
   .responsive-container {
     padding: 10px;
   }
 }
 
-// Animation definitions
+/* Animation definitions */
 @keyframes fadeIn {
   from {
     opacity: 0;
