@@ -1,1 +1,52 @@
-import React, { useState } from 'react';\nimport Modal from 'react-modal';\n\nconst TokenShop = () => {\n  const [coinAmount, setCoinAmount] = useState(0);\n  const [paymentMethod, setPaymentMethod] = useState('');\n  const [modalIsOpen, setModalIsOpen] = useState(false);\n\n  const usdPrice = coinAmount * 0.01; // Example pricing: $0.01 per coin\n  const taxRate = 0.1; // 10% tax\n  const taxAmount = usdPrice * taxRate;\n  const totalPrice = usdPrice + taxAmount;\n\n  const handlePurchase = () => {\n    setModalIsOpen(true);\n  };\n\n  const closeModal = () => {\n    setModalIsOpen(false);\n  };\n\n  return (\n    <div>\n      <h1>Token Shop</h1>\n      <label>Coin Amount:</label>\n      <input type='number' value={coinAmount} onChange={(e) => setCoinAmount(e.target.value)} />\n      <p>Price in USD: ${usdPrice.toFixed(2)}</p>\n      <p>Tax: ${taxAmount.toFixed(2)}</p>\n      <p>Total Price: ${totalPrice.toFixed(2)}</p>\n      <h3>Payment Methods</h3>\n      <select onChange={(e) => setPaymentMethod(e.target.value)}>\n        <option value=''>Select Payment Method</option>\n        <option value='credit_card'>Credit Card</option>\n        <option value='paypal'>PayPal</option>\n      </select>\n      <button onClick={handlePurchase}>Purchase</button>\n\n      <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>\n        <h2>Confirmation</h2>\n        <p>You have purchased {coinAmount} coins for ${totalPrice.toFixed(2)}.</p>\n        <button onClick={closeModal}>Close</button>\n      </Modal>\n    </div>\n  );\n};\n\nexport default TokenShop;
+import React, { useState } from 'react';
+
+const TokenShop = () => {
+  const [coinAmount, setCoinAmount] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  const usdPrice = coinAmount * 0.01;
+  const taxRate = 0.1;
+  const taxAmount = usdPrice * taxRate;
+  const totalPrice = usdPrice + taxAmount;
+
+  const handlePurchase = () => {
+    setShowConfirmation(true);
+  };
+
+  const closeConfirmation = () => {
+    setShowConfirmation(false);
+  };
+
+  return (
+    <div>
+      <h1>Token Shop</h1>
+      <label>Coin Amount:</label>
+      <input
+        type="number"
+        value={coinAmount}
+        onChange={(e) => setCoinAmount(Number(e.target.value))}
+      />
+      <p>Price in USD: ${usdPrice.toFixed(2)}</p>
+      <p>Tax: ${taxAmount.toFixed(2)}</p>
+      <p>Total Price: ${totalPrice.toFixed(2)}</p>
+      <h3>Payment Methods</h3>
+      <select onChange={(e) => setPaymentMethod(e.target.value)}>
+        <option value="">Select Payment Method</option>
+        <option value="credit_card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+      </select>
+      <button onClick={handlePurchase}>Purchase</button>
+
+      {showConfirmation && (
+        <div>
+          <h2>Confirmation</h2>
+          <p>You have purchased {coinAmount} coins for ${totalPrice.toFixed(2)}.</p>
+          <button onClick={closeConfirmation}>Close</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default TokenShop;

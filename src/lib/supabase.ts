@@ -8,7 +8,7 @@ const supabaseAnonKey = 'your-anon-key';
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Example of a real-time subscription
-action setupRealTimeSubscription() {
+async function setupRealTimeSubscription() {
     const subscription = supabase
         .from('your-table-name')
         .on('INSERT', payload => {

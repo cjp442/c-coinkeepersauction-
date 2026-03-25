@@ -1,1 +1,33 @@
-{\n  "name": "keepersauction-com",\n  "version": "1.0.0",\n  "scripts": {\n    "start": "react-scripts start",\n    "build": "react-scripts build",\n    "test": "react-scripts test",\n    "eject": "react-scripts eject"\n  },\n  "dependencies": {\n    "react": "^18.2.0",\n    "react-dom": "^18.2.0",\n    "other-dependency": "1.0.0"\n  },\n  "devDependencies": {\n    "webpack": "5.0.0",\n    "babel-loader": "8.0.0"\n  }\n}
+{
+  "name": "keepersauction-com",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/drei": "^7.27.5",
+    "@react-three/fiber": "^7.0.29",
+    "@supabase/supabase-js": "^1.28.0",
+    "autoprefixer": "^10.4.27",
+    "core-js": "^3.48.0",
+    "lucide-react": "^0.575.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.0",
+    "stripe": "^8.0.0",
+    "tailwindcss": "^3.4.19",
+    "three": "^0.133.1",
+    "ws": "^8.5.0",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.4",
+    "eslint": "^8.57.0",
+    "typescript": "4.9.5",
+    "vite": "^7.3.1"
+  }
+}
