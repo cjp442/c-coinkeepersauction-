@@ -1,9 +1,1 @@
-{
-  "name": "keepersauction-com",
-  "version": "1.0.0",
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
-  }
-}
+{\n  "name": "keepersauction-com",\n  "version": "1.0.0",\n  "scripts": {\n    "start": "react-scripts start",\n    "build": "react-scripts build",\n    "test": "react-scripts test",\n    "eject": "react-scripts eject"\n  },\n  "dependencies": {\n    "react": "^18.2.0",\n    "react-dom": "^18.2.0",\n    "other-dependency": "1.0.0"\n  },\n  "devDependencies": {\n    "webpack": "5.0.0",\n    "babel-loader": "8.0.0"\n  }\n}
